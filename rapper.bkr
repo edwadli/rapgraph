@@ -58,7 +58,7 @@
             "id": "section001",
             "type": "section",
             "level": 1,
-            "title": "\nHello Notebook",
+            "title": "RapGraph",
             "collapsed": false,
             "evaluatorReader": false
         },
@@ -69,7 +69,14 @@
             "input": {
                 "body": [
                     "from nltk.corpus import cmudict",
+                    "_DEBUG_ = True",
+                    "# the basis of rhyme",
                     "transcr = cmudict.dict()",
+                    "_NULL_ = '_NULL_'",
+                    "phs = 'AA AE AH AO AW AY B CH D DH EH ER EY F G HH IH\\",
+                    "    IY JH K L M N NG OW OY P R S SH T TH UH UW V W Y Z'.split()",
+                    "phs_vowels = set('AA AE AH AO AW AY EH ER EY IH IY OW OY UH UW'.split())",
+                    "    ",
                     "",
                     "def tokenizeVerse(verse):",
                     "    # preprocessing",
@@ -97,7 +104,7 @@
                     "    phonemes = {}",
                     "    for word in words:",
                     "        # get possible pronunciations from dict",
-                    "        possible_pronunciations =  transcr.get(word, [['NULL']])",
+                    "        possible_pronunciations =  transcr.get(word, [[_NULL_]])",
                     "        if word not in transcr:",
                     "            # TODO: generate a guess on the pronunciation",
                     "            pass",
@@ -105,6 +112,8 @@
                     "        for pronunciation in possible_pronunciations:",
                     "            for i in range(len(pronunciation)):",
                     "                pronunciation[i] = ''.join(c for c in pronunciation[i] if not c.isdigit())",
+                    "        # remove repeats",
+                    "        possible_pronunciations = list(set([tuple(p) for p in possible_pronunciations]))",
                     "        phonemes[word] = possible_pronunciations",
                     "    return phonemes",
                     "",
@@ -116,6 +125,12 @@
                     "        tail_permutations = allPhonemePermutations(line, phoneme_dict, pos+1)",
                     "        # cons all possible head word pronunciations",
                     "        all_permutations = []",
+                    "        ",
+                    "        # helpful DEBUG warning message",
+                    "        if _DEBUG_ and len(phoneme_dict[line[pos]]) > 2:",
+                    "               print \"Many Pronunciations Warning: \" + line[pos]",
+                    "               print phoneme_dict[line[pos]]",
+                    "        ",
                     "        for head_pronunciation in phoneme_dict[line[pos]]:",
                     "            # tag each phoneme with their word for later reconstruction",
                     "            head = [(phoneme, pos) for phoneme in head_pronunciation]",
@@ -127,12 +142,20 @@
                     "        return all_permutations",
                     "",
                     "def phonemeSimilarity(ph_a, ph_b):",
-                    "    # Custom phoneme rhyming similarity in range [0, 1]",
-                    "    relative_score = 0",
+                    "    # Heuristic phoneme rhyming similarity in range [0, 1]    ",
+                    "    relative_score = 0.",
+                    "    if ph_a == _NULL_ or ph_b == _NULL_:",
+                    "        return 0.",
                     "    if ph_a == ph_b:",
+                    "        # rhyme",
                     "        relative_score = 1.",
-                    "    else:",
-                    "        relative_score = 0.",
+                    "    elif ph_a in phs_vowels:",
+                    "        if ph_b in phs_vowels:",
+                    "            # both vowels, likely to rhyme",
+                    "            relative_score = 0.3",
+                    "    elif ph_b not in phs_vowels:",
+                    "        # both consonants, could help rhyme",
+                    "        relative_score = 0.05",
                     "    return relative_score",
                     "    ",
                     "    ",
@@ -140,8 +163,8 @@
                     "def alignPhonemeSequences(a_seq, b_seq):",
                     "    # Smith-Waterman alignment with custom phoneme similarity scoring",
                     "    GAP_PENALTY = -1.",
-                    "    MIN_SCORE = -1.",
-                    "    MAX_SCORE = 2.",
+                    "    MIN_SCORE = -10.",
+                    "    MAX_SCORE = 10.",
                     "    score_range = MAX_SCORE - MIN_SCORE",
                     "    ",
                     "    width = len(a_seq)+1",
@@ -236,19 +259,40 @@
                     "            # shift for next iteration",
                     "            prev_line = curr_line",
                     "        ",
-                    "    return verse_nested, word_links",
-                    "    ",
+                    "    return verse_nested, word_links, phoneme_dict",
+                    "",
+                    "def inlineRhyme(line, phoneme_dict):",
+                    "    # greedy forward pass",
+                    "    links = []",
+                    "    for pos in range(len(line)-1):",
+                    "        word = line[pos]",
+                    "        # note that this method doesnt capture all multiword rhymes",
+                    "        # we can capture a little more if we also do a backward pass",
+                    "        alignment = alignRhyme([word], line[pos+1:], phoneme_dict)",
+                    "        links += [(pos_a+pos, pos_b+pos+1,wt) for (pos_a, pos_b, wt) in alignment if wt > 1]",
+                    "    return links",
                     "",
                     "def analyzeRap(verse):",
                     "    # get rhyme graph",
-                    "    verse_nested, word_links = wordLinks(verse)",
+                    "    verse_nested, word_links, phoneme_dict = wordLinks(verse)",
+                    "    inline_links = [inlineRhyme(line, phoneme_dict) for line in verse_nested]",
                     "    # save to beaker",
                     "    beaker.words = verse_nested # list of list of words",
                     "    beaker.rhymes = word_links # list of list of (wordindex, wordindex, multiplicity)",
+                    "    beaker.inlines = inline_links # list of list of (wordindex, wordindex, weight)",
                     "    return",
                     "",
                     "# rap here",
-                    "verse = \"\"\"\\",
+                    "nicki = \"\"\"",
+                    "I said, excuse me, you're a hell of a guy",
+                    "I mean my, my, my, my you're like pelican fly",
+                    "I mean, you're so shy and I'm loving your tie",
+                    "You're like slicker than the guy with the thing on his eye, oh",
+                    "Yes I did, yes I did, somebody please tell him who the F I is",
+                    "I am Nicki Minaj, I mack them dudes up, back coupes up, and chuck the deuce up",
+                    "\"\"\"",
+                    "",
+                    "eminem = \"\"\"\\",
                     "His palms are sweaty, knees weak, arms are heavy",
                     "There's vomit on his sweater already, mom's spaghetti",
                     "He's nervous, but on the surface he looks calm and ready to drop bombs,",
@@ -259,24 +303,57 @@
                     "The clock's run out, time's up, over, blaow!",
                     "Snap back to reality. Oh, there goes gravity",
                     "Oh, there goes Rabbit, he choked",
-                    "He's so mad, but he won't give up that",
+                    "He's so mad, but he won't give up that easy, no",
                     "\"\"\"",
                     "",
-                    "analyzeRap(verse)",
+                    "analyzeRap(nicki)",
                     ""
                 ]
             },
             "output": {
-                "selectedType": "Hidden",
+                "selectedType": "Results",
                 "outputArrived": true,
-                "elapsedTime": 11778,
+                "elapsedTime": 9698,
                 "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "Many Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                        },
+                        {
+                            "type": "out",
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                        },
+                        {
+                            "type": "out",
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                        },
+                        {
+                            "type": "out",
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                        },
+                        {
+                            "type": "out",
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                        },
+                        {
+                            "type": "out",
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                        },
+                        {
+                            "type": "out",
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\n"
+                        }
+                    ]
+                },
                 "pluginName": "IPython",
                 "shellId": "990C66F9DAE8419288BB5705EE32B19A",
                 "dataresult": 3
             },
             "evaluatorReader": true,
-            "lineCount": 196
+            "lineCount": 240
         },
         {
             "id": "codemuKi0Q",
@@ -303,7 +380,7 @@
                 "result": {
                     "type": "BeakerDisplay",
                     "innertype": "Html",
-                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<style>\n.node {\n  stroke: #fff;\n  stroke-width: 1.5px;\n}\n\n.link {\n  stroke: #999;\n  stroke-opacity: .6;\n}\n</style>\n<div id=\"graph\"><svg height=\"600\" width=\"800\">Rap Analyzer<g transform=\"translate(30,30)\"><text dx=\"-20\">his</text></g><g transform=\"translate(112.22222222222223,30)\"><text dx=\"-20\">palms</text></g><g transform=\"translate(194.44444444444446,30)\"><text dx=\"-20\">are</text></g><g transform=\"translate(276.66666666666663,30)\"><text dx=\"-20\">sweaty</text></g><g transform=\"translate(358.8888888888889,30)\"><text dx=\"-20\">knees</text></g><g transform=\"translate(441.1111111111111,30)\"><text dx=\"-20\">weak</text></g><g transform=\"translate(523.3333333333333,30)\"><text dx=\"-20\">arms</text></g><g transform=\"translate(605.5555555555555,30)\"><text dx=\"-20\">are</text></g><g transform=\"translate(687.7777777777778,30)\"><text dx=\"-20\">heavy</text></g><g transform=\"translate(30,79.0909090909091)\"><text dx=\"-20\">there's</text></g><g transform=\"translate(122.5,79.0909090909091)\"><text dx=\"-20\">vomit</text></g><g transform=\"translate(215,79.0909090909091)\"><text dx=\"-20\">on</text></g><g transform=\"translate(307.5,79.0909090909091)\"><text dx=\"-20\">his</text></g><g transform=\"translate(400,79.0909090909091)\"><text dx=\"-20\">sweater</text></g><g transform=\"translate(492.5,79.0909090909091)\"><text dx=\"-20\">already</text></g><g transform=\"translate(585,79.0909090909091)\"><text dx=\"-20\">mom's</text></g><g transform=\"translate(677.5,79.0909090909091)\"><text dx=\"-20\">spaghetti</text></g><g transform=\"translate(30,128.1818181818182)\"><text dx=\"-20\">he's</text></g><g transform=\"translate(82.85714285714286,128.1818181818182)\"><text dx=\"-20\">nervous</text></g><g transform=\"translate(135.71428571428572,128.1818181818182)\"><text dx=\"-20\">but</text></g><g transform=\"translate(188.57142857142858,128.1818181818182)\"><text dx=\"-20\">on</text></g><g transform=\"translate(241.42857142857142,128.1818181818182)\"><text dx=\"-20\">the</text></g><g transform=\"translate(294.2857142857143,128.1818181818182)\"><text dx=\"-20\">surface</text></g><g transform=\"translate(347.14285714285717,128.1818181818182)\"><text dx=\"-20\">he</text></g><g transform=\"translate(400,128.1818181818182)\"><text dx=\"-20\">looks</text></g><g transform=\"translate(452.85714285714283,128.1818181818182)\"><text dx=\"-20\">calm</text></g><g transform=\"translate(505.7142857142857,128.1818181818182)\"><text dx=\"-20\">and</text></g><g transform=\"translate(558.5714285714286,128.1818181818182)\"><text dx=\"-20\">ready</text></g><g transform=\"translate(611.4285714285714,128.1818181818182)\"><text dx=\"-20\">to</text></g><g transform=\"translate(664.2857142857143,128.1818181818182)\"><text dx=\"-20\">drop</text></g><g transform=\"translate(717.1428571428571,128.1818181818182)\"><text dx=\"-20\">bombs</text></g><g transform=\"translate(30,177.27272727272728)\"><text dx=\"-20\">but</text></g><g transform=\"translate(112.22222222222223,177.27272727272728)\"><text dx=\"-20\">he</text></g><g transform=\"translate(194.44444444444446,177.27272727272728)\"><text dx=\"-20\">keeps</text></g><g transform=\"translate(276.66666666666663,177.27272727272728)\"><text dx=\"-20\">on</text></g><g transform=\"translate(358.8888888888889,177.27272727272728)\"><text dx=\"-20\">forgetting</text></g><g transform=\"translate(441.1111111111111,177.27272727272728)\"><text dx=\"-20\">what</text></g><g transform=\"translate(523.3333333333333,177.27272727272728)\"><text dx=\"-20\">he</text></g><g transform=\"translate(605.5555555555555,177.27272727272728)\"><text dx=\"-20\">wrote</text></g><g transform=\"translate(687.7777777777778,177.27272727272728)\"><text dx=\"-20\">down</text></g><g transform=\"translate(30,226.36363636363637)\"><text dx=\"-20\">the</text></g><g transform=\"translate(153.33333333333331,226.36363636363637)\"><text dx=\"-20\">whole</text></g><g transform=\"translate(276.66666666666663,226.36363636363637)\"><text dx=\"-20\">crowd</text></g><g transform=\"translate(400,226.36363636363637)\"><text dx=\"-20\">goes</text></g><g transform=\"translate(523.3333333333333,226.36363636363637)\"><text dx=\"-20\">so</text></g><g transform=\"translate(646.6666666666666,226.36363636363637)\"><text dx=\"-20\">loud</text></g><g transform=\"translate(30,275.4545454545455)\"><text dx=\"-20\">he</text></g><g transform=\"translate(104,275.4545454545455)\"><text dx=\"-20\">opens</text></g><g transform=\"translate(178,275.4545454545455)\"><text dx=\"-20\">his</text></g><g transform=\"translate(252,275.4545454545455)\"><text dx=\"-20\">mouth</text></g><g transform=\"translate(326,275.4545454545455)\"><text dx=\"-20\">but</text></g><g transform=\"translate(400,275.4545454545455)\"><text dx=\"-20\">the</text></g><g transform=\"translate(474,275.4545454545455)\"><text dx=\"-20\">words</text></g><g transform=\"translate(548,275.4545454545455)\"><text dx=\"-20\">won't</text></g><g transform=\"translate(622,275.4545454545455)\"><text dx=\"-20\">come</text></g><g transform=\"translate(696,275.4545454545455)\"><text dx=\"-20\">out</text></g><g transform=\"translate(30,324.54545454545456)\"><text dx=\"-20\">he's</text></g><g transform=\"translate(153.33333333333331,324.54545454545456)\"><text dx=\"-20\">choking</text></g><g transform=\"translate(276.66666666666663,324.54545454545456)\"><text dx=\"-20\">how</text></g><g transform=\"translate(400,324.54545454545456)\"><text dx=\"-20\">everybody's</text></g><g transform=\"translate(523.3333333333333,324.54545454545456)\"><text dx=\"-20\">joking</text></g><g transform=\"translate(646.6666666666666,324.54545454545456)\"><text dx=\"-20\">now</text></g><g transform=\"translate(30,373.6363636363636)\"><text dx=\"-20\">the</text></g><g transform=\"translate(122.5,373.6363636363636)\"><text dx=\"-20\">clock's</text></g><g transform=\"translate(215,373.6363636363636)\"><text dx=\"-20\">run</text></g><g transform=\"translate(307.5,373.6363636363636)\"><text dx=\"-20\">out</text></g><g transform=\"translate(400,373.6363636363636)\"><text dx=\"-20\">time's</text></g><g transform=\"translate(492.5,373.6363636363636)\"><text dx=\"-20\">up</text></g><g transform=\"translate(585,373.6363636363636)\"><text dx=\"-20\">over</text></g><g transform=\"translate(677.5,373.6363636363636)\"><text dx=\"-20\">blaow</text></g><g transform=\"translate(30,422.72727272727275)\"><text dx=\"-20\">snap</text></g><g transform=\"translate(122.5,422.72727272727275)\"><text dx=\"-20\">back</text></g><g transform=\"translate(215,422.72727272727275)\"><text dx=\"-20\">to</text></g><g transform=\"translate(307.5,422.72727272727275)\"><text dx=\"-20\">reality</text></g><g transform=\"translate(400,422.72727272727275)\"><text dx=\"-20\">oh</text></g><g transform=\"translate(492.5,422.72727272727275)\"><text dx=\"-20\">there</text></g><g transform=\"translate(585,422.72727272727275)\"><text dx=\"-20\">goes</text></g><g transform=\"translate(677.5,422.72727272727275)\"><text dx=\"-20\">gravity</text></g><g transform=\"translate(30,471.8181818181818)\"><text dx=\"-20\">oh</text></g><g transform=\"translate(153.33333333333331,471.8181818181818)\"><text dx=\"-20\">there</text></g><g transform=\"translate(276.66666666666663,471.8181818181818)\"><text dx=\"-20\">goes</text></g><g transform=\"translate(400,471.8181818181818)\"><text dx=\"-20\">rabbit</text></g><g transform=\"translate(523.3333333333333,471.8181818181818)\"><text dx=\"-20\">he</text></g><g transform=\"translate(646.6666666666666,471.8181818181818)\"><text dx=\"-20\">choked</text></g><g transform=\"translate(30,520.909090909091)\"><text dx=\"-20\">he's</text></g><g transform=\"translate(112.22222222222223,520.909090909091)\"><text dx=\"-20\">so</text></g><g transform=\"translate(194.44444444444446,520.909090909091)\"><text dx=\"-20\">mad</text></g><g transform=\"translate(276.66666666666663,520.909090909091)\"><text dx=\"-20\">but</text></g><g transform=\"translate(358.8888888888889,520.909090909091)\"><text dx=\"-20\">he</text></g><g transform=\"translate(441.1111111111111,520.909090909091)\"><text dx=\"-20\">won't</text></g><g transform=\"translate(523.3333333333333,520.909090909091)\"><text dx=\"-20\">give</text></g><g transform=\"translate(605.5555555555555,520.909090909091)\"><text dx=\"-20\">up</text></g><g transform=\"translate(687.7777777777778,520.909090909091)\"><text dx=\"-20\">that</text></g><line style=\"stroke-width: 3; stroke: rgb(6, 120, 155);\" y2=\"79.0909090909091\" x2=\"307.5\" y1=\"30\" x1=\"30\"></line><line style=\"stroke-width: 4; stroke: rgb(6, 120, 155);\" y2=\"79.0909090909091\" x2=\"400\" y1=\"30\" x1=\"276.66666666666663\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"79.0909090909091\" x2=\"492.5\" y1=\"30\" x1=\"441.1111111111111\"></line><line style=\"stroke-width: 3; stroke: rgb(6, 120, 155);\" y2=\"79.0909090909091\" x2=\"585\" y1=\"30\" x1=\"523.3333333333333\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"128.1818181818182\" x2=\"135.71428571428572\" y1=\"79.0909090909091\" x1=\"122.5\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"128.1818181818182\" x2=\"400\" y1=\"79.0909090909091\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"128.1818181818182\" x2=\"30\" y1=\"79.0909090909091\" x1=\"30\"></line><line style=\"stroke-width: 4; stroke: rgb(6, 120, 155);\" y2=\"128.1818181818182\" x2=\"558.5714285714286\" y1=\"79.0909090909091\" x1=\"492.5\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"128.1818181818182\" x2=\"188.57142857142858\" y1=\"79.0909090909091\" x1=\"215\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"128.1818181818182\" x2=\"347.14285714285717\" y1=\"79.0909090909091\" x1=\"307.5\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"128.1818181818182\" x2=\"82.85714285714286\" y1=\"79.0909090909091\" x1=\"122.5\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"177.27272727272728\" x2=\"276.66666666666663\" y1=\"128.1818181818182\" x1=\"452.85714285714283\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"177.27272727272728\" x2=\"358.8888888888889\" y1=\"128.1818181818182\" x1=\"611.4285714285714\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"177.27272727272728\" x2=\"358.8888888888889\" y1=\"128.1818181818182\" x1=\"558.5714285714286\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"177.27272727272728\" x2=\"112.22222222222223\" y1=\"128.1818181818182\" x1=\"347.14285714285717\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"177.27272727272728\" x2=\"276.66666666666663\" y1=\"128.1818181818182\" x1=\"505.7142857142857\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"177.27272727272728\" x2=\"30\" y1=\"128.1818181818182\" x1=\"294.2857142857143\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"177.27272727272728\" x2=\"194.44444444444446\" y1=\"128.1818181818182\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"226.36363636363637\" x2=\"30\" y1=\"177.27272727272728\" x1=\"523.3333333333333\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"226.36363636363637\" x2=\"153.33333333333331\" y1=\"177.27272727272728\" x1=\"605.5555555555555\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"275.4545454545455\" x2=\"400\" y1=\"226.36363636363637\" x1=\"30\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"324.54545454545456\" x2=\"400\" y1=\"275.4545454545455\" x1=\"474\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"324.54545454545456\" x2=\"276.66666666666663\" y1=\"275.4545454545455\" x1=\"252\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"324.54545454545456\" x2=\"30\" y1=\"275.4545454545455\" x1=\"30\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"324.54545454545456\" x2=\"153.33333333333331\" y1=\"275.4545454545455\" x1=\"178\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"324.54545454545456\" x2=\"523.3333333333333\" y1=\"275.4545454545455\" x1=\"548\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"324.54545454545456\" x2=\"523.3333333333333\" y1=\"275.4545454545455\" x1=\"622\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"324.54545454545456\" x2=\"400\" y1=\"275.4545454545455\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"373.6363636363636\" x2=\"30\" y1=\"324.54545454545456\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"373.6363636363636\" x2=\"122.5\" y1=\"324.54545454545456\" x1=\"523.3333333333333\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"373.6363636363636\" x2=\"215\" y1=\"324.54545454545456\" x1=\"646.6666666666666\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"373.6363636363636\" x2=\"307.5\" y1=\"324.54545454545456\" x1=\"646.6666666666666\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"422.72727272727275\" x2=\"307.5\" y1=\"373.6363636363636\" x1=\"30\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"422.72727272727275\" x2=\"307.5\" y1=\"373.6363636363636\" x1=\"122.5\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"471.8181818181818\" x2=\"523.3333333333333\" y1=\"422.72727272727275\" x1=\"677.5\"></line><line style=\"stroke-width: 4; stroke: rgb(6, 120, 155);\" y2=\"471.8181818181818\" x2=\"400\" y1=\"422.72727272727275\" x1=\"677.5\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"471.8181818181818\" x2=\"30\" y1=\"422.72727272727275\" x1=\"400\"></line><line style=\"stroke-width: 3; stroke: rgb(6, 120, 155);\" y2=\"471.8181818181818\" x2=\"276.66666666666663\" y1=\"422.72727272727275\" x1=\"585\"></line><line style=\"stroke-width: 3; stroke: rgb(6, 120, 155);\" y2=\"471.8181818181818\" x2=\"153.33333333333331\" y1=\"422.72727272727275\" x1=\"492.5\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"520.909090909091\" x2=\"194.44444444444446\" y1=\"471.8181818181818\" x1=\"400\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"520.909090909091\" x2=\"358.8888888888889\" y1=\"471.8181818181818\" x1=\"523.3333333333333\"></line><line style=\"stroke-width: 2; stroke: rgb(6, 120, 155);\" y2=\"520.909090909091\" x2=\"441.1111111111111\" y1=\"471.8181818181818\" x1=\"646.6666666666666\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"520.909090909091\" x2=\"112.22222222222223\" y1=\"471.8181818181818\" x1=\"276.66666666666663\"></line><line style=\"stroke-width: 3; stroke: rgb(6, 120, 155);\" y2=\"520.909090909091\" x2=\"276.66666666666663\" y1=\"471.8181818181818\" x1=\"400\"></line></svg></div>"
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<style>\n.node {\n  stroke: #fff;\n  stroke-width: 1.5px;\n}\n\n.link {\n  stroke: #999;\n  stroke-opacity: .6;\n}\n</style>\n<div id=\"graph\"><svg height=\"800\" width=\"800\">Rap Analyzer<g transform=\"translate(60,60)\"><text dx=\"-20\">his</text></g><g transform=\"translate(135.55555555555554,60)\"><text dx=\"-20\">palms</text></g><g transform=\"translate(211.11111111111111,60)\"><text dx=\"-20\">are</text></g><g transform=\"translate(286.66666666666663,60)\"><text dx=\"-20\">sweaty</text></g><g transform=\"translate(362.22222222222223,60)\"><text dx=\"-20\">knees</text></g><g transform=\"translate(437.77777777777777,60)\"><text dx=\"-20\">weak</text></g><g transform=\"translate(513.3333333333333,60)\"><text dx=\"-20\">arms</text></g><g transform=\"translate(588.8888888888889,60)\"><text dx=\"-20\">are</text></g><g transform=\"translate(664.4444444444445,60)\"><text dx=\"-20\">heavy</text></g><g transform=\"translate(60,121.81818181818181)\"><text dx=\"-20\">there's</text></g><g transform=\"translate(145,121.81818181818181)\"><text dx=\"-20\">vomit</text></g><g transform=\"translate(230,121.81818181818181)\"><text dx=\"-20\">on</text></g><g transform=\"translate(315,121.81818181818181)\"><text dx=\"-20\">his</text></g><g transform=\"translate(400,121.81818181818181)\"><text dx=\"-20\">sweater</text></g><g transform=\"translate(485,121.81818181818181)\"><text dx=\"-20\">already</text></g><g transform=\"translate(570,121.81818181818181)\"><text dx=\"-20\">mom's</text></g><g transform=\"translate(655,121.81818181818181)\"><text dx=\"-20\">spaghetti</text></g><g transform=\"translate(60,183.63636363636363)\"><text dx=\"-20\">he's</text></g><g transform=\"translate(108.57142857142857,183.63636363636363)\"><text dx=\"-20\">nervous</text></g><g transform=\"translate(157.14285714285714,183.63636363636363)\"><text dx=\"-20\">but</text></g><g transform=\"translate(205.71428571428572,183.63636363636363)\"><text dx=\"-20\">on</text></g><g transform=\"translate(254.28571428571428,183.63636363636363)\"><text dx=\"-20\">the</text></g><g transform=\"translate(302.8571428571429,183.63636363636363)\"><text dx=\"-20\">surface</text></g><g transform=\"translate(351.42857142857144,183.63636363636363)\"><text dx=\"-20\">he</text></g><g transform=\"translate(400,183.63636363636363)\"><text dx=\"-20\">looks</text></g><g transform=\"translate(448.57142857142856,183.63636363636363)\"><text dx=\"-20\">calm</text></g><g transform=\"translate(497.14285714285717,183.63636363636363)\"><text dx=\"-20\">and</text></g><g transform=\"translate(545.7142857142858,183.63636363636363)\"><text dx=\"-20\">ready</text></g><g transform=\"translate(594.2857142857143,183.63636363636363)\"><text dx=\"-20\">to</text></g><g transform=\"translate(642.8571428571429,183.63636363636363)\"><text dx=\"-20\">drop</text></g><g transform=\"translate(691.4285714285714,183.63636363636363)\"><text dx=\"-20\">bombs</text></g><g transform=\"translate(60,245.45454545454547)\"><text dx=\"-20\">but</text></g><g transform=\"translate(135.55555555555554,245.45454545454547)\"><text dx=\"-20\">he</text></g><g transform=\"translate(211.11111111111111,245.45454545454547)\"><text dx=\"-20\">keeps</text></g><g transform=\"translate(286.66666666666663,245.45454545454547)\"><text dx=\"-20\">on</text></g><g transform=\"translate(362.22222222222223,245.45454545454547)\"><text dx=\"-20\">forgetting</text></g><g transform=\"translate(437.77777777777777,245.45454545454547)\"><text dx=\"-20\">what</text></g><g transform=\"translate(513.3333333333333,245.45454545454547)\"><text dx=\"-20\">he</text></g><g transform=\"translate(588.8888888888889,245.45454545454547)\"><text dx=\"-20\">wrote</text></g><g transform=\"translate(664.4444444444445,245.45454545454547)\"><text dx=\"-20\">down</text></g><g transform=\"translate(60,307.27272727272725)\"><text dx=\"-20\">the</text></g><g transform=\"translate(173.33333333333331,307.27272727272725)\"><text dx=\"-20\">whole</text></g><g transform=\"translate(286.66666666666663,307.27272727272725)\"><text dx=\"-20\">crowd</text></g><g transform=\"translate(400,307.27272727272725)\"><text dx=\"-20\">goes</text></g><g transform=\"translate(513.3333333333333,307.27272727272725)\"><text dx=\"-20\">so</text></g><g transform=\"translate(626.6666666666666,307.27272727272725)\"><text dx=\"-20\">loud</text></g><g transform=\"translate(60,369.09090909090907)\"><text dx=\"-20\">he</text></g><g transform=\"translate(128,369.09090909090907)\"><text dx=\"-20\">opens</text></g><g transform=\"translate(196,369.09090909090907)\"><text dx=\"-20\">his</text></g><g transform=\"translate(264,369.09090909090907)\"><text dx=\"-20\">mouth</text></g><g transform=\"translate(332,369.09090909090907)\"><text dx=\"-20\">but</text></g><g transform=\"translate(400,369.09090909090907)\"><text dx=\"-20\">the</text></g><g transform=\"translate(468,369.09090909090907)\"><text dx=\"-20\">words</text></g><g transform=\"translate(536,369.09090909090907)\"><text dx=\"-20\">won't</text></g><g transform=\"translate(604,369.09090909090907)\"><text dx=\"-20\">come</text></g><g transform=\"translate(672,369.09090909090907)\"><text dx=\"-20\">out</text></g><g transform=\"translate(60,430.90909090909093)\"><text dx=\"-20\">he's</text></g><g transform=\"translate(173.33333333333331,430.90909090909093)\"><text dx=\"-20\">choking</text></g><g transform=\"translate(286.66666666666663,430.90909090909093)\"><text dx=\"-20\">how</text></g><g transform=\"translate(400,430.90909090909093)\"><text dx=\"-20\">everybody's</text></g><g transform=\"translate(513.3333333333333,430.90909090909093)\"><text dx=\"-20\">joking</text></g><g transform=\"translate(626.6666666666666,430.90909090909093)\"><text dx=\"-20\">now</text></g><g transform=\"translate(60,492.72727272727275)\"><text dx=\"-20\">the</text></g><g transform=\"translate(145,492.72727272727275)\"><text dx=\"-20\">clock's</text></g><g transform=\"translate(230,492.72727272727275)\"><text dx=\"-20\">run</text></g><g transform=\"translate(315,492.72727272727275)\"><text dx=\"-20\">out</text></g><g transform=\"translate(400,492.72727272727275)\"><text dx=\"-20\">time's</text></g><g transform=\"translate(485,492.72727272727275)\"><text dx=\"-20\">up</text></g><g transform=\"translate(570,492.72727272727275)\"><text dx=\"-20\">over</text></g><g transform=\"translate(655,492.72727272727275)\"><text dx=\"-20\">blaow</text></g><g transform=\"translate(60,554.5454545454545)\"><text dx=\"-20\">snap</text></g><g transform=\"translate(145,554.5454545454545)\"><text dx=\"-20\">back</text></g><g transform=\"translate(230,554.5454545454545)\"><text dx=\"-20\">to</text></g><g transform=\"translate(315,554.5454545454545)\"><text dx=\"-20\">reality</text></g><g transform=\"translate(400,554.5454545454545)\"><text dx=\"-20\">oh</text></g><g transform=\"translate(485,554.5454545454545)\"><text dx=\"-20\">there</text></g><g transform=\"translate(570,554.5454545454545)\"><text dx=\"-20\">goes</text></g><g transform=\"translate(655,554.5454545454545)\"><text dx=\"-20\">gravity</text></g><g transform=\"translate(60,616.3636363636364)\"><text dx=\"-20\">oh</text></g><g transform=\"translate(173.33333333333331,616.3636363636364)\"><text dx=\"-20\">there</text></g><g transform=\"translate(286.66666666666663,616.3636363636364)\"><text dx=\"-20\">goes</text></g><g transform=\"translate(400,616.3636363636364)\"><text dx=\"-20\">rabbit</text></g><g transform=\"translate(513.3333333333333,616.3636363636364)\"><text dx=\"-20\">he</text></g><g transform=\"translate(626.6666666666666,616.3636363636364)\"><text dx=\"-20\">choked</text></g><g transform=\"translate(60,678.1818181818181)\"><text dx=\"-20\">he's</text></g><g transform=\"translate(121.81818181818181,678.1818181818181)\"><text dx=\"-20\">so</text></g><g transform=\"translate(183.63636363636363,678.1818181818181)\"><text dx=\"-20\">mad</text></g><g transform=\"translate(245.45454545454547,678.1818181818181)\"><text dx=\"-20\">but</text></g><g transform=\"translate(307.27272727272725,678.1818181818181)\"><text dx=\"-20\">he</text></g><g transform=\"translate(369.09090909090907,678.1818181818181)\"><text dx=\"-20\">won't</text></g><g transform=\"translate(430.90909090909093,678.1818181818181)\"><text dx=\"-20\">give</text></g><g transform=\"translate(492.72727272727275,678.1818181818181)\"><text dx=\"-20\">up</text></g><g transform=\"translate(554.5454545454545,678.1818181818181)\"><text dx=\"-20\">that</text></g><g transform=\"translate(616.3636363636364,678.1818181818181)\"><text dx=\"-20\">easy</text></g><g transform=\"translate(678.1818181818181,678.1818181818181)\"><text dx=\"-20\">no</text></g><line style=\"stroke-width: 5.19615; stroke: rgb(6, 120, 155);\" y2=\"121.81818181818181\" x2=\"315\" y1=\"60\" x1=\"60\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"121.81818181818181\" x2=\"485\" y1=\"60\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 8; stroke: rgb(6, 120, 155);\" y2=\"121.81818181818181\" x2=\"400\" y1=\"60\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"121.81818181818181\" x2=\"655\" y1=\"60\" x1=\"664.4444444444445\"></line><line style=\"stroke-width: 5.19615; stroke: rgb(6, 120, 155);\" y2=\"121.81818181818181\" x2=\"570\" y1=\"60\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"157.14285714285714\" y1=\"121.81818181818181\" x1=\"145\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"60\" y1=\"121.81818181818181\" x1=\"60\"></line><line style=\"stroke-width: 8; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"545.7142857142858\" y1=\"121.81818181818181\" x1=\"485\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"302.8571428571429\" y1=\"121.81818181818181\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"400\" y1=\"121.81818181818181\" x1=\"485\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"205.71428571428572\" y1=\"121.81818181818181\" x1=\"230\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"691.4285714285714\" y1=\"121.81818181818181\" x1=\"570\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"642.8571428571429\" y1=\"121.81818181818181\" x1=\"570\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"183.63636363636363\" x2=\"108.57142857142857\" y1=\"121.81818181818181\" x1=\"145\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"286.66666666666663\" y1=\"183.63636363636363\" x1=\"448.57142857142856\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"362.22222222222223\" y1=\"183.63636363636363\" x1=\"594.2857142857143\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"362.22222222222223\" y1=\"183.63636363636363\" x1=\"545.7142857142858\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"437.77777777777777\" y1=\"183.63636363636363\" x1=\"594.2857142857143\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"588.8888888888889\" y1=\"183.63636363636363\" x1=\"642.8571428571429\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"286.66666666666663\" y1=\"183.63636363636363\" x1=\"497.14285714285717\"></line><line style=\"stroke-width: 5.19615; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"60\" y1=\"183.63636363636363\" x1=\"157.14285714285714\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"135.55555555555554\" y1=\"183.63636363636363\" x1=\"351.42857142857144\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"245.45454545454547\" x2=\"211.11111111111111\" y1=\"183.63636363636363\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"307.27272727272725\" x2=\"400\" y1=\"245.45454545454547\" x1=\"588.8888888888889\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"307.27272727272725\" x2=\"60\" y1=\"245.45454545454547\" x1=\"60\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"307.27272727272725\" x2=\"400\" y1=\"245.45454545454547\" x1=\"362.22222222222223\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"307.27272727272725\" x2=\"286.66666666666663\" y1=\"245.45454545454547\" x1=\"211.11111111111111\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"307.27272727272725\" x2=\"286.66666666666663\" y1=\"245.45454545454547\" x1=\"362.22222222222223\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"307.27272727272725\" x2=\"626.6666666666666\" y1=\"245.45454545454547\" x1=\"664.4444444444445\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"307.27272727272725\" x2=\"173.33333333333331\" y1=\"245.45454545454547\" x1=\"135.55555555555554\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"369.09090909090907\" x2=\"196\" y1=\"307.27272727272725\" x1=\"173.33333333333331\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"369.09090909090907\" x2=\"672\" y1=\"307.27272727272725\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"369.09090909090907\" x2=\"536\" y1=\"307.27272727272725\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"369.09090909090907\" x2=\"468\" y1=\"307.27272727272725\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"369.09090909090907\" x2=\"264\" y1=\"307.27272727272725\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"369.09090909090907\" x2=\"468\" y1=\"307.27272727272725\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"369.09090909090907\" x2=\"128\" y1=\"307.27272727272725\" x1=\"60\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"430.90909090909093\" x2=\"400\" y1=\"369.09090909090907\" x1=\"468\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"430.90909090909093\" x2=\"286.66666666666663\" y1=\"369.09090909090907\" x1=\"264\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"430.90909090909093\" x2=\"60\" y1=\"369.09090909090907\" x1=\"60\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"430.90909090909093\" x2=\"173.33333333333331\" y1=\"369.09090909090907\" x1=\"196\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"430.90909090909093\" x2=\"513.3333333333333\" y1=\"369.09090909090907\" x1=\"536\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"430.90909090909093\" x2=\"626.6666666666666\" y1=\"369.09090909090907\" x1=\"672\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"430.90909090909093\" x2=\"513.3333333333333\" y1=\"369.09090909090907\" x1=\"604\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"492.72727272727275\" x2=\"60\" y1=\"430.90909090909093\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"492.72727272727275\" x2=\"145\" y1=\"430.90909090909093\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"492.72727272727275\" x2=\"230\" y1=\"430.90909090909093\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"492.72727272727275\" x2=\"315\" y1=\"430.90909090909093\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"554.5454545454545\" x2=\"145\" y1=\"492.72727272727275\" x1=\"145\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"554.5454545454545\" x2=\"655\" y1=\"492.72727272727275\" x1=\"485\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"554.5454545454545\" x2=\"315\" y1=\"492.72727272727275\" x1=\"230\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"554.5454545454545\" x2=\"570\" y1=\"492.72727272727275\" x1=\"400\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"554.5454545454545\" x2=\"315\" y1=\"492.72727272727275\" x1=\"315\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"616.3636363636364\" x2=\"513.3333333333333\" y1=\"554.5454545454545\" x1=\"655\"></line><line style=\"stroke-width: 8; stroke: rgb(6, 120, 155);\" y2=\"616.3636363636364\" x2=\"400\" y1=\"554.5454545454545\" x1=\"655\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"616.3636363636364\" x2=\"60\" y1=\"554.5454545454545\" x1=\"400\"></line><line style=\"stroke-width: 5.19615; stroke: rgb(6, 120, 155);\" y2=\"616.3636363636364\" x2=\"286.66666666666663\" y1=\"554.5454545454545\" x1=\"570\"></line><line style=\"stroke-width: 5.19615; stroke: rgb(6, 120, 155);\" y2=\"616.3636363636364\" x2=\"173.33333333333331\" y1=\"554.5454545454545\" x1=\"485\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"678.1818181818181\" x2=\"121.81818181818181\" y1=\"616.3636363636364\" x1=\"60\"></line><line style=\"stroke-width: 1; stroke: rgb(6, 120, 155);\" y2=\"678.1818181818181\" x2=\"183.63636363636363\" y1=\"616.3636363636364\" x1=\"400\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"678.1818181818181\" x2=\"307.27272727272725\" y1=\"616.3636363636364\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 2.82843; stroke: rgb(6, 120, 155);\" y2=\"678.1818181818181\" x2=\"369.09090909090907\" y1=\"616.3636363636364\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 5.19615; stroke: rgb(6, 120, 155);\" y2=\"678.1818181818181\" x2=\"245.45454545454547\" y1=\"616.3636363636364\" x1=\"400\"></line><path style=\"stroke-width: 3; fill: none; stroke: rgb(255, 179, 0);\" d=\"M135.55555555555554,60A377.7777777777777,377.7777777777777 0 0,1 513.3333333333333,60\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M211.11111111111111,60A302.2222222222222,302.2222222222222 0 0,1 513.3333333333333,60\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M286.66666666666663,60A377.7777777777778,377.7777777777778 0 0,1 664.4444444444445,60\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M513.3333333333333,60A75.55555555555566,75.55555555555566 0 0,1 588.8888888888889,60\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M145,121.81818181818181A510,510 0 0,1 655,121.81818181818181\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M145,121.81818181818181A425,425 0 0,1 570,121.81818181818181\"></path><path style=\"stroke-width: 3; fill: none; stroke: rgb(255, 179, 0);\" d=\"M400,121.81818181818181A255,255 0 0,1 655,121.81818181818181\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M485,121.81818181818181A170,170 0 0,1 655,121.81818181818181\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M60,183.63636363636363A291.42857142857144,291.42857142857144 0 0,1 351.42857142857144,183.63636363636363\"></path><path style=\"stroke-width: 3; fill: none; stroke: rgb(255, 179, 0);\" d=\"M108.57142857142857,183.63636363636363A194.28571428571433,194.28571428571433 0 0,1 302.8571428571429,183.63636363636363\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M60,245.45454545454547A377.77777777777777,377.77777777777777 0 0,1 437.77777777777777,245.45454545454547\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M362.22222222222223,245.45454545454547A226.66666666666669,226.66666666666669 0 0,1 588.8888888888889,245.45454545454547\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M286.66666666666663,307.27272727272725A340,340 0 0,1 626.6666666666666,307.27272727272725\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M128,369.09090909090907A408,408 0 0,1 536,369.09090909090907\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M60,430.90909090909093A340,340 0 0,1 400,430.90909090909093\"></path><path style=\"stroke-width: 4; fill: none; stroke: rgb(255, 179, 0);\" d=\"M173.33333333333331,430.90909090909093A339.99999999999994,339.99999999999994 0 0,1 513.3333333333333,430.90909090909093\"></path><path style=\"stroke-width: 4; fill: none; stroke: rgb(255, 179, 0);\" d=\"M315,554.5454545454545A340,340 0 0,1 655,554.5454545454545\"></path><path style=\"stroke-width: 2; fill: none; stroke: rgb(255, 179, 0);\" d=\"M60,678.1818181818181A247.27272727272725,247.27272727272725 0 0,1 307.27272727272725,678.1818181818181\"></path></svg></div>"
                 },
                 "selectedType": "BeakerDisplay",
                 "elapsedTime": 0
@@ -323,10 +400,10 @@
                     "            .append(\"svg\");",
                     "",
                     "var width = 800,",
-                    "    height= 600;",
+                    "    height= 800;",
                     "vis.attr(\"width\", width)",
                     "  .attr(\"height\", height);",
-                    "var border = 30;",
+                    "var border = 60;",
                     "var maxwidth = width - 2*border,",
                     "    maxheight = height - 2*border;",
                     "",
@@ -337,9 +414,18 @@
                     "var word_grid = beaker.words;",
                     "var node_pos = {}",
                     "var nodes = []",
+                    "",
+                    "var max_row_length = 0;",
+                    "for (var i=0; i<word_grid.length; i++){",
+                    "  if (word_grid[i].length >= max_row_length){",
+                    "    max_row_length = word_grid[i].length;",
+                    "  }",
+                    "}",
+                    "",
                     "for (var i=0; i<word_grid.length; i++){",
                     "  for (var j=0; j<word_grid[i].length; j++){",
                     "    var xpos = border + j*maxwidth/word_grid[i].length;",
+                    "//     var xpos = border + j*maxwidth/max_row_length;",
                     "    var ypos = border + i*maxheight/word_grid.length;",
                     "    var node_obj = {x: xpos, y: ypos, data:word_grid[i][j]};",
                     "    nodes.push(node_obj);",
@@ -355,33 +441,13 @@
                     "  .append(\"g\")",
                     "  .attr(\"transform\", function(d) { return \"translate(\"+d.x+\",\"+d.y+\")\"})",
                     "",
-                    "// var circle = elemEnter.append(\"circle\")",
-                    "//   .attr(\"r\", \"15px\" )",
-                    "//   .attr(\"stroke\", \"black\")",
-                    "//   .attr(\"fill\", \"white\")",
                     "",
                     "elemEnter.append(\"text\")",
                     "  .attr(\"dx\", function(d){return -20})",
                     "  .text(function(d){return d.data})",
                     "",
-                    "// vis.selectAll(\"circle.nodes\")",
-                    "//   .data(nodes)",
-                    "//   .enter()",
-                    "//   .append(\"svg:circle\")",
-                    "//   .attr(\"cx\", function(d) { return d.x; })",
-                    "//   .attr(\"cy\", function(d) { return d.y; })",
                     "",
-                    "// vis.selectAll(\"circle.nodes\")",
-                    "//   .data(nodes)",
-                    "//   .enter()",
-                    "//   .append(\"svg:circle\")",
-                    "//   .attr(\"cx\", function(d) { return d.x; })",
-                    "//   .attr(\"cy\", function(d) { return d.y; })",
-                    "//   .attr(\"r\", \"10px\")",
-                    "//   .attr(\"fill\", \"black\")",
-                    "",
-                    "",
-                    "// links",
+                    "// rhyme links",
                     "var rhymes = beaker.rhymes;",
                     "// list of list of (indexprev, indexcurr, weight)",
                     "var links = []",
@@ -389,7 +455,8 @@
                     "  for (var j=0; j<rhymes[i].length; j++){",
                     "    var src = node_pos[i+\",\"+rhymes[i][j][0]];",
                     "    var tgt = node_pos[(i+1)+\",\"+rhymes[i][j][1]];",
-                    "    var wt = rhymes[i][j][2];",
+                    "    // emphasize high multiplicity connections",
+                    "    var wt = Math.pow(rhymes[i][j][2], 1.5);",
                     "    links.push({source: src, target: tgt, weight: wt})",
                     "  }",
                     "}",
@@ -406,18 +473,47 @@
                     "  .style(\"stroke\", \"rgb(6,120,155)\");",
                     "",
                     "",
+                    "",
+                    "// inline rhyme links",
+                    "var inlines = beaker.inlines;",
+                    "// list of list of (index, index, weight)",
+                    "var inline_links = []",
+                    "for (var i=0; i<inlines.length; i++){",
+                    "  for (var j=0; j<inlines[i].length; j++){",
+                    "    var src = node_pos[i+\",\"+inlines[i][j][0]];",
+                    "    var tgt = node_pos[i+\",\"+inlines[i][j][1]];",
+                    "    var wt = inlines[i][j][2];",
+                    "    inline_links.push({source: src, target: tgt, weight: wt});",
+                    "  }",
+                    "}",
+                    "",
+                    "vis.selectAll(\".inline\")",
+                    "  .data(inline_links)",
+                    "  .enter()",
+                    "  .append(\"path\")",
+                    "  .attr(\"d\", function(d) {",
+                    "    // curved link",
+                    "    var dx = d.target.x - d.source.x,",
+                    "        dy = d.target.y - d.source.y,",
+                    "        dr = Math.sqrt(dx * dx + dy * dy);",
+                    "    return \"M\" + d.source.x + \",\" + d.source.y + \"A\" + dr + \",\" + dr + \" 0 0,1 \" + d.target.x + \",\" + d.target.y;",
+                    "  })",
+                    "  .style(\"stroke-width\", function(d) { return d.weight; })",
+                    "  .style(\"fill\", \"none\")",
+                    "  .style(\"stroke\", \"rgb(255,179,0)\");",
+                    "",
                     ""
                 ]
             },
             "output": {
                 "selectedType": "Text",
-                "elapsedTime": 80,
+                "elapsedTime": 79,
                 "state": {},
                 "result": "ERROR: circular objects are not supported",
                 "pluginName": "JavaScript"
             },
             "evaluatorReader": true,
-            "lineCount": 90
+            "lineCount": 109
         },
         {
             "id": "markdown188oO3",
@@ -549,7 +645,9 @@
                     "won't",
                     "give",
                     "up",
-                    "that"
+                    "that",
+                    "easy",
+                    "no"
                 ]
             ],
             "subtype": "Matrix",
@@ -585,13 +683,18 @@
                 ],
                 [
                     3,
+                    5,
+                    1
+                ],
+                [
+                    3,
                     4,
                     4
                 ],
                 [
-                    5,
-                    5,
-                    1
+                    8,
+                    7,
+                    2
                 ],
                 [
                     6,
@@ -603,11 +706,6 @@
                 [
                     1,
                     2,
-                    2
-                ],
-                [
-                    4,
-                    7,
                     1
                 ],
                 [
@@ -621,19 +719,34 @@
                     4
                 ],
                 [
+                    4,
+                    5,
+                    2
+                ],
+                [
+                    5,
+                    7,
+                    1
+                ],
+                [
                     2,
                     3,
                     2
                 ],
                 [
-                    3,
                     6,
+                    13,
+                    2
+                ],
+                [
+                    6,
+                    12,
                     1
                 ],
                 [
                     1,
                     1,
-                    1
+                    2
                 ]
             ],
             [
@@ -645,7 +758,7 @@
                 [
                     11,
                     4,
-                    2
+                    1
                 ],
                 [
                     10,
@@ -653,9 +766,14 @@
                     2
                 ],
                 [
-                    6,
-                    1,
-                    2
+                    11,
+                    5,
+                    1
+                ],
+                [
+                    12,
+                    7,
+                    1
                 ],
                 [
                     9,
@@ -663,9 +781,14 @@
                     1
                 ],
                 [
-                    5,
+                    2,
                     0,
-                    1
+                    3
+                ],
+                [
+                    6,
+                    1,
+                    2
                 ],
                 [
                     7,
@@ -675,28 +798,83 @@
             ],
             [
                 [
-                    6,
+                    7,
+                    3,
+                    1
+                ],
+                [
+                    0,
                     0,
                     1
                 ],
                 [
-                    7,
+                    4,
+                    3,
+                    1
+                ],
+                [
+                    2,
+                    2,
+                    1
+                ],
+                [
+                    4,
+                    2,
+                    1
+                ],
+                [
+                    8,
+                    5,
+                    1
+                ],
+                [
+                    1,
                     1,
                     1
                 ]
             ],
             [
                 [
-                    0,
+                    1,
+                    2,
+                    1
+                ],
+                [
                     5,
-                    2
+                    9,
+                    1
+                ],
+                [
+                    4,
+                    7,
+                    1
+                ],
+                [
+                    2,
+                    6,
+                    1
+                ],
+                [
+                    2,
+                    3,
+                    1
+                ],
+                [
+                    3,
+                    6,
+                    1
+                ],
+                [
+                    0,
+                    1,
+                    1
                 ]
             ],
             [
                 [
                     6,
                     3,
-                    2
+                    1
                 ],
                 [
                     3,
@@ -716,17 +894,17 @@
                 [
                     7,
                     4,
+                    1
+                ],
+                [
+                    9,
+                    5,
                     1
                 ],
                 [
                     8,
                     4,
                     1
-                ],
-                [
-                    5,
-                    3,
-                    1
                 ]
             ],
             [
@@ -753,12 +931,27 @@
             ],
             [
                 [
-                    0,
+                    1,
+                    1,
+                    1
+                ],
+                [
+                    5,
+                    7,
+                    1
+                ],
+                [
+                    2,
                     3,
                     1
                 ],
                 [
-                    1,
+                    4,
+                    6,
+                    1
+                ],
+                [
+                    3,
                     3,
                     1
                 ]
@@ -792,29 +985,361 @@
             ],
             [
                 [
-                    3,
-                    2,
-                    1
-                ],
-                [
-                    4,
-                    4,
-                    2
-                ],
-                [
-                    5,
-                    5,
-                    2
-                ],
-                [
-                    2,
+                    0,
                     1,
                     1
                 ],
                 [
                     3,
+                    2,
+                    1
+                ],
+                [
+                    4,
+                    4,
+                    2
+                ],
+                [
+                    5,
+                    5,
+                    2
+                ],
+                [
+                    3,
                     3,
                     3
+                ]
+            ]
+        ],
+        "inline": [
+            [
+                [
+                    1,
+                    2,
+                    1
+                ],
+                [
+                    6,
+                    7,
+                    1
+                ],
+                [
+                    4,
+                    6,
+                    1
+                ],
+                [
+                    4,
+                    4,
+                    1
+                ],
+                [
+                    8,
+                    9,
+                    1
+                ],
+                [
+                    8,
+                    8,
+                    1
+                ],
+                [
+                    7,
+                    8,
+                    1
+                ],
+                [
+                    2,
+                    4,
+                    1
+                ]
+            ],
+            [
+                [
+                    1,
+                    2,
+                    1
+                ],
+                [
+                    5,
+                    7,
+                    1
+                ],
+                [
+                    3,
+                    3,
+                    1
+                ],
+                [
+                    4,
+                    5,
+                    1
+                ],
+                [
+                    7,
+                    8,
+                    1
+                ],
+                [
+                    4,
+                    4,
+                    1
+                ],
+                [
+                    9,
+                    9,
+                    1
+                ],
+                [
+                    8,
+                    9,
+                    1
+                ],
+                [
+                    8,
+                    8,
+                    1
+                ],
+                [
+                    2,
+                    3,
+                    1
+                ],
+                [
+                    2,
+                    2,
+                    1
+                ],
+                [
+                    3,
+                    4,
+                    1
+                ],
+                [
+                    5,
+                    5,
+                    1
+                ]
+            ],
+            [
+                [
+                    6,
+                    7,
+                    1
+                ],
+                [
+                    6,
+                    6,
+                    1
+                ],
+                [
+                    4,
+                    5,
+                    1
+                ],
+                [
+                    9,
+                    9,
+                    1
+                ],
+                [
+                    5,
+                    6,
+                    1
+                ],
+                [
+                    8,
+                    8,
+                    2
+                ],
+                [
+                    0,
+                    4,
+                    1
+                ],
+                [
+                    7,
+                    8,
+                    1
+                ]
+            ],
+            [
+                [
+                    1,
+                    2,
+                    1
+                ],
+                [
+                    6,
+                    7,
+                    1
+                ],
+                [
+                    6,
+                    6,
+                    1
+                ],
+                [
+                    4,
+                    5,
+                    1
+                ],
+                [
+                    4,
+                    4,
+                    1
+                ],
+                [
+                    7,
+                    7,
+                    2
+                ],
+                [
+                    8,
+                    9,
+                    1
+                ],
+                [
+                    5,
+                    6,
+                    1
+                ],
+                [
+                    8,
+                    8,
+                    1
+                ],
+                [
+                    0,
+                    10,
+                    1
+                ],
+                [
+                    10,
+                    11,
+                    1
+                ],
+                [
+                    7,
+                    8,
+                    1
+                ],
+                [
+                    2,
+                    4,
+                    1
+                ]
+            ]
+        ],
+        "inlines": [
+            [
+                [
+                    1,
+                    6,
+                    3
+                ],
+                [
+                    2,
+                    6,
+                    2
+                ],
+                [
+                    3,
+                    8,
+                    2
+                ],
+                [
+                    6,
+                    7,
+                    2
+                ]
+            ],
+            [
+                [
+                    1,
+                    7,
+                    2
+                ],
+                [
+                    1,
+                    6,
+                    2
+                ],
+                [
+                    4,
+                    7,
+                    3
+                ],
+                [
+                    5,
+                    7,
+                    2
+                ]
+            ],
+            [
+                [
+                    0,
+                    6,
+                    2
+                ],
+                [
+                    1,
+                    5,
+                    3
+                ]
+            ],
+            [
+                [
+                    0,
+                    5,
+                    2
+                ],
+                [
+                    4,
+                    7,
+                    2
+                ]
+            ],
+            [
+                [
+                    2,
+                    5,
+                    2
+                ]
+            ],
+            [
+                [
+                    1,
+                    7,
+                    2
+                ]
+            ],
+            [
+                [
+                    0,
+                    3,
+                    2
+                ],
+                [
+                    1,
+                    4,
+                    4
+                ]
+            ],
+            [],
+            [
+                [
+                    3,
+                    7,
+                    4
+                ]
+            ],
+            [],
+            [
+                [
+                    0,
+                    4,
+                    2
                 ]
             ]
         ]
