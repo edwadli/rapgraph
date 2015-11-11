@@ -36,26 +36,29 @@ def analysis_gen(lyrics):
     # TODO load rapper.py
     for c in lyrics:
         yield c
+        time.sleep(0.5)
+
 
 # lyric analysis, yield partial results
 @app.route('/analyze/<path:lyrics>', methods=['GET'])
 def analyze(lyrics):
     def online_results():
-        if not lyrics:
-            ev = ServerSentEvent("", "__EOF__")
-            yield ev.encode()
-        else:
+        ev = ServerSentEvent(" ", "__START__")
+        print ev.encode()
+        yield ev.encode()
+        if lyrics:
         # run analysis on lyrics
             for partial_result in analysis_gen(lyrics):
                 ev = ServerSentEvent(json.dumps(partial_result), "partial")
+                print ev.encode()
                 yield ev.encode()
-            ev = ServerSentEvent("", "__EOF__")
-            yield ev.encode()
+        ev = ServerSentEvent(" ", "__EOF__")
+        print ev.encode()
+        yield ev.encode()
     return Response(online_results(), mimetype="text/event-stream")
 
 if __name__ == "__main__":
-    app.debug = True
-    server = WSGIServer(("", 5000), app)
-    server.serve_forever()
-    # app.run()
+    # server = WSGIServer(("", 5000), app)
+    # server.serve_forever()
+    app.run(threaded=True, debug=True)
 

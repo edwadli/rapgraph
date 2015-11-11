@@ -19,6 +19,7 @@ $(document).ready(function(){
         resultSource.onmessage = function(e) {
             // TODO: call d3 visualization
             console.log(e);
+            alert(e);
             if (e.event === '__EOF__') {
                 resultSource.close();
             }
@@ -29,6 +30,7 @@ $(document).ready(function(){
         resultSource.onerror = function(e) {
             $('#graph').append($("p").html("Data failed to finish loading"));
         };
+        resultSource.onopen = function(e) { console.log('analysis source opened'); };
 
     });
 
