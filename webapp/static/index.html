@@ -1,0 +1,58 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>RapGraph</title>
+
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+<!-- custom styles -->
+<link rel="stylesheet" href="/styles/index.css">
+
+</head>
+
+<body>
+
+    <div class="container center title">
+        <h1>RapGraph</h1> 
+        <h3>Rhyme Visualizer</h3>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- Lyrics Input START -->
+            <div class="col-lg-5 col-md-6">
+                <form role="form" id="lyric-input">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="10"
+                            id="lyrics-textarea" placeholder="  input lyrics..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default">Analyze!</button>
+                </form>
+            </div>
+            <!-- Lyrics Input END -->
+            <!-- Visualization Output START -->
+            <div class="col-lg-7 col-md-6">
+                <div class="visualization">
+                    <div id="graph">
+                        <br><br> please input lyrics...
+                    </div>
+                </div>
+            </div>
+            <!-- Visualization Output END -->
+        </div>
+        
+    </div>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <!-- D3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.8/d3.min.js"></script>
+    <!-- custom scripts -->
+    <script src="/scripts/index.js"></script>
+    <script src="/scripts/rapper.js"></script>
+</body>
+
+</html>

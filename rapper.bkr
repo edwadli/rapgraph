@@ -84,7 +84,7 @@
                     "phs = 'AA AE AH AO AW AY B CH D DH EH ER EY F G HH IH\\",
                     "    IY JH K L M N NG OW OY P R S SH T TH UH UW V W Y Z'.split()",
                     "phs_vowels = set('AA AE AH AO AW AY EH ER EY IH IY OW OY UH UW'.split())",
-                    "    ",
+                    "",
                     "",
                     "def tokenizeVerse(verse):",
                     "    # preprocessing",
@@ -315,26 +315,6 @@
                     "\"\"\"",
                     "",
                     "",
-                    "yeezy = \"\"\"",
-                    "Man I promise, she's so self-conscious",
-                    "She has no idea what she's doing in college",
-                    "That major that she majored in don't make no money",
-                    "But she won't drop out, her parents will look at her funny",
-                    "Now, tell me that ain't insecure",
-                    "The concept of school seems so secure",
-                    "Sophomore, three yurrs, ain't picked a career",
-                    "She like, fuck it, I'll just stay down here and do hair",
-                    "Cause that's enough money to buy her a few pairs of new Airs",
-                    "Cause her baby-daddy don't really care",
-                    "She's so precious with the peer pressure",
-                    "Couldn't afford a car so she named her daughter Alexis",
-                    "She had hair so long that it looked like weave",
-                    "Then she cut it all off, now she look like Eve",
-                    "And she be dealin' with some issues that you can't believe",
-                    "Single black female addicted to retail",
-                    "\"\"\"",
-                    "",
-                    "",
                     "analyzeRap(eminem)",
                     ""
                 ]
@@ -342,10 +322,10 @@
             "output": {
                 "selectedType": "Results",
                 "outputArrived": true,
-                "elapsedTime": 13751,
+                "elapsedTime": 12047,
                 "state": {},
                 "pluginName": "IPython",
-                "shellId": "4634E8BDD57747AD8BF44955C519250E",
+                "shellId": "36778888EADD46269B06424E51BA3B40",
                 "dataresult": 3,
                 "result": {
                     "type": "Results",
@@ -372,17 +352,22 @@
                         },
                         {
                             "type": "out",
-                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
                         },
                         {
                             "type": "out",
-                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\n"
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\nMany Pronunciations Warning: to"
+                        },
+                        {
+                            "type": "out",
+                            "value": "\n[(u'T', u'IH'), (u'T', u'UW'), (u'T', u'AH')]\n"
                         }
                     ]
-                }
+                },
+                "hidden": true
             },
             "evaluatorReader": true,
-            "lineCount": 261
+            "lineCount": 241
         },
         {
             "id": "codemuKi0Q",
@@ -391,15 +376,7 @@
             "input": {
                 "body": [
                     "<style>",
-                    ".node {",
-                    "  stroke: #fff;",
-                    "  stroke-width: 1.5px;",
-                    "}",
                     "",
-                    ".link {",
-                    "  stroke: #999;",
-                    "  stroke-opacity: .6;",
-                    "}",
                     "</style>",
                     "<div id=\"graph\"></div>"
                 ]
@@ -409,13 +386,13 @@
                 "result": {
                     "type": "BeakerDisplay",
                     "innertype": "Html",
-                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<style>\n.node {\n  stroke: #fff;\n  stroke-width: 1.5px;\n}\n\n.link {\n  stroke: #999;\n  stroke-opacity: .6;\n}\n</style>\n<div id=\"graph\"><svg height=\"1000\" width=\"800\">Rap Analyzer<g transform=\"translate(60,60)\"><text font-size=\"15px\" dx=\"-20\">his</text></g><g transform=\"translate(135.55555555555554,60)\"><text font-size=\"15px\" dx=\"-20\">palms</text></g><g transform=\"translate(211.11111111111111,60)\"><text font-size=\"15px\" dx=\"-20\">are</text></g><g transform=\"translate(286.66666666666663,60)\"><text font-size=\"15px\" dx=\"-20\">sweaty</text></g><g transform=\"translate(362.22222222222223,60)\"><text font-size=\"15px\" dx=\"-20\">knees</text></g><g transform=\"translate(437.77777777777777,60)\"><text font-size=\"15px\" dx=\"-20\">weak</text></g><g transform=\"translate(513.3333333333333,60)\"><text font-size=\"15px\" dx=\"-20\">arms</text></g><g transform=\"translate(588.8888888888889,60)\"><text font-size=\"15px\" dx=\"-20\">are</text></g><g transform=\"translate(664.4444444444445,60)\"><text font-size=\"15px\" dx=\"-20\">heavy</text></g><g transform=\"translate(60,140)\"><text font-size=\"15px\" dx=\"-20\">there's</text></g><g transform=\"translate(145,140)\"><text font-size=\"15px\" dx=\"-20\">vomit</text></g><g transform=\"translate(230,140)\"><text font-size=\"15px\" dx=\"-20\">on</text></g><g transform=\"translate(315,140)\"><text font-size=\"15px\" dx=\"-20\">his</text></g><g transform=\"translate(400,140)\"><text font-size=\"15px\" dx=\"-20\">sweater</text></g><g transform=\"translate(485,140)\"><text font-size=\"15px\" dx=\"-20\">already</text></g><g transform=\"translate(570,140)\"><text font-size=\"15px\" dx=\"-20\">mom's</text></g><g transform=\"translate(655,140)\"><text font-size=\"15px\" dx=\"-20\">spaghetti</text></g><g transform=\"translate(60,220)\"><text font-size=\"15px\" dx=\"-20\">he's</text></g><g transform=\"translate(108.57142857142857,220)\"><text font-size=\"15px\" dx=\"-20\">nervous</text></g><g transform=\"translate(157.14285714285714,220)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(205.71428571428572,220)\"><text font-size=\"15px\" dx=\"-20\">on</text></g><g transform=\"translate(254.28571428571428,220)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(302.8571428571429,220)\"><text font-size=\"15px\" dx=\"-20\">surface</text></g><g transform=\"translate(351.42857142857144,220)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(400,220)\"><text font-size=\"15px\" dx=\"-20\">looks</text></g><g transform=\"translate(448.57142857142856,220)\"><text font-size=\"15px\" dx=\"-20\">calm</text></g><g transform=\"translate(497.14285714285717,220)\"><text font-size=\"15px\" dx=\"-20\">and</text></g><g transform=\"translate(545.7142857142858,220)\"><text font-size=\"15px\" dx=\"-20\">ready</text></g><g transform=\"translate(594.2857142857143,220)\"><text font-size=\"15px\" dx=\"-20\">to</text></g><g transform=\"translate(642.8571428571429,220)\"><text font-size=\"15px\" dx=\"-20\">drop</text></g><g transform=\"translate(691.4285714285714,220)\"><text font-size=\"15px\" dx=\"-20\">bombs</text></g><g transform=\"translate(60,300)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(135.55555555555554,300)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(211.11111111111111,300)\"><text font-size=\"15px\" dx=\"-20\">keeps</text></g><g transform=\"translate(286.66666666666663,300)\"><text font-size=\"15px\" dx=\"-20\">on</text></g><g transform=\"translate(362.22222222222223,300)\"><text font-size=\"15px\" dx=\"-20\">forgetting</text></g><g transform=\"translate(437.77777777777777,300)\"><text font-size=\"15px\" dx=\"-20\">what</text></g><g transform=\"translate(513.3333333333333,300)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(588.8888888888889,300)\"><text font-size=\"15px\" dx=\"-20\">wrote</text></g><g transform=\"translate(664.4444444444445,300)\"><text font-size=\"15px\" dx=\"-20\">down</text></g><g transform=\"translate(60,380)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(173.33333333333331,380)\"><text font-size=\"15px\" dx=\"-20\">whole</text></g><g transform=\"translate(286.66666666666663,380)\"><text font-size=\"15px\" dx=\"-20\">crowd</text></g><g transform=\"translate(400,380)\"><text font-size=\"15px\" dx=\"-20\">goes</text></g><g transform=\"translate(513.3333333333333,380)\"><text font-size=\"15px\" dx=\"-20\">so</text></g><g transform=\"translate(626.6666666666666,380)\"><text font-size=\"15px\" dx=\"-20\">loud</text></g><g transform=\"translate(60,460)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(128,460)\"><text font-size=\"15px\" dx=\"-20\">opens</text></g><g transform=\"translate(196,460)\"><text font-size=\"15px\" dx=\"-20\">his</text></g><g transform=\"translate(264,460)\"><text font-size=\"15px\" dx=\"-20\">mouth</text></g><g transform=\"translate(332,460)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(400,460)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(468,460)\"><text font-size=\"15px\" dx=\"-20\">words</text></g><g transform=\"translate(536,460)\"><text font-size=\"15px\" dx=\"-20\">won't</text></g><g transform=\"translate(604,460)\"><text font-size=\"15px\" dx=\"-20\">come</text></g><g transform=\"translate(672,460)\"><text font-size=\"15px\" dx=\"-20\">out</text></g><g transform=\"translate(60,540)\"><text font-size=\"15px\" dx=\"-20\">he's</text></g><g transform=\"translate(173.33333333333331,540)\"><text font-size=\"15px\" dx=\"-20\">choking</text></g><g transform=\"translate(286.66666666666663,540)\"><text font-size=\"15px\" dx=\"-20\">how</text></g><g transform=\"translate(400,540)\"><text font-size=\"15px\" dx=\"-20\">everybody's</text></g><g transform=\"translate(513.3333333333333,540)\"><text font-size=\"15px\" dx=\"-20\">joking</text></g><g transform=\"translate(626.6666666666666,540)\"><text font-size=\"15px\" dx=\"-20\">now</text></g><g transform=\"translate(60,620)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(145,620)\"><text font-size=\"15px\" dx=\"-20\">clock's</text></g><g transform=\"translate(230,620)\"><text font-size=\"15px\" dx=\"-20\">run</text></g><g transform=\"translate(315,620)\"><text font-size=\"15px\" dx=\"-20\">out</text></g><g transform=\"translate(400,620)\"><text font-size=\"15px\" dx=\"-20\">time's</text></g><g transform=\"translate(485,620)\"><text font-size=\"15px\" dx=\"-20\">up</text></g><g transform=\"translate(570,620)\"><text font-size=\"15px\" dx=\"-20\">over</text></g><g transform=\"translate(655,620)\"><text font-size=\"15px\" dx=\"-20\">blaow</text></g><g transform=\"translate(60,700)\"><text font-size=\"15px\" dx=\"-20\">snap</text></g><g transform=\"translate(145,700)\"><text font-size=\"15px\" dx=\"-20\">back</text></g><g transform=\"translate(230,700)\"><text font-size=\"15px\" dx=\"-20\">to</text></g><g transform=\"translate(315,700)\"><text font-size=\"15px\" dx=\"-20\">reality</text></g><g transform=\"translate(400,700)\"><text font-size=\"15px\" dx=\"-20\">oh</text></g><g transform=\"translate(485,700)\"><text font-size=\"15px\" dx=\"-20\">there</text></g><g transform=\"translate(570,700)\"><text font-size=\"15px\" dx=\"-20\">goes</text></g><g transform=\"translate(655,700)\"><text font-size=\"15px\" dx=\"-20\">gravity</text></g><g transform=\"translate(60,780)\"><text font-size=\"15px\" dx=\"-20\">oh</text></g><g transform=\"translate(173.33333333333331,780)\"><text font-size=\"15px\" dx=\"-20\">there</text></g><g transform=\"translate(286.66666666666663,780)\"><text font-size=\"15px\" dx=\"-20\">goes</text></g><g transform=\"translate(400,780)\"><text font-size=\"15px\" dx=\"-20\">rabbit</text></g><g transform=\"translate(513.3333333333333,780)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(626.6666666666666,780)\"><text font-size=\"15px\" dx=\"-20\">choked</text></g><g transform=\"translate(60,860)\"><text font-size=\"15px\" dx=\"-20\">he's</text></g><g transform=\"translate(135.55555555555554,860)\"><text font-size=\"15px\" dx=\"-20\">so</text></g><g transform=\"translate(211.11111111111111,860)\"><text font-size=\"15px\" dx=\"-20\">mad</text></g><g transform=\"translate(286.66666666666663,860)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(362.22222222222223,860)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(437.77777777777777,860)\"><text font-size=\"15px\" dx=\"-20\">won't</text></g><g transform=\"translate(513.3333333333333,860)\"><text font-size=\"15px\" dx=\"-20\">give</text></g><g transform=\"translate(588.8888888888889,860)\"><text font-size=\"15px\" dx=\"-20\">up</text></g><g transform=\"translate(664.4444444444445,860)\"><text font-size=\"15px\" dx=\"-20\">that</text></g><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"315\" y1=\"60\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"485\" y1=\"60\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 8; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"400\" y1=\"60\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"655\" y1=\"60\" x1=\"664.4444444444445\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"570\" y1=\"60\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"157.14285714285714\" y1=\"140\" x1=\"145\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"60\" y1=\"140\" x1=\"60\"></line><line style=\"stroke-width: 8; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"545.7142857142858\" y1=\"140\" x1=\"485\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"302.8571428571429\" y1=\"140\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"400\" y1=\"140\" x1=\"485\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"205.71428571428572\" y1=\"140\" x1=\"230\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"691.4285714285714\" y1=\"140\" x1=\"570\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"642.8571428571429\" y1=\"140\" x1=\"570\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"108.57142857142857\" y1=\"140\" x1=\"145\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"286.66666666666663\" y1=\"220\" x1=\"448.57142857142856\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"362.22222222222223\" y1=\"220\" x1=\"594.2857142857143\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"362.22222222222223\" y1=\"220\" x1=\"545.7142857142858\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"437.77777777777777\" y1=\"220\" x1=\"594.2857142857143\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"588.8888888888889\" y1=\"220\" x1=\"642.8571428571429\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"286.66666666666663\" y1=\"220\" x1=\"497.14285714285717\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"60\" y1=\"220\" x1=\"157.14285714285714\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"135.55555555555554\" y1=\"220\" x1=\"351.42857142857144\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"211.11111111111111\" y1=\"220\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"400\" y1=\"300\" x1=\"588.8888888888889\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"60\" y1=\"300\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"400\" y1=\"300\" x1=\"362.22222222222223\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"286.66666666666663\" y1=\"300\" x1=\"211.11111111111111\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"286.66666666666663\" y1=\"300\" x1=\"362.22222222222223\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"626.6666666666666\" y1=\"300\" x1=\"664.4444444444445\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"173.33333333333331\" y1=\"300\" x1=\"135.55555555555554\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"196\" y1=\"380\" x1=\"173.33333333333331\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"672\" y1=\"380\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"536\" y1=\"380\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"468\" y1=\"380\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"264\" y1=\"380\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"468\" y1=\"380\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"128\" y1=\"380\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"400\" y1=\"460\" x1=\"468\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"286.66666666666663\" y1=\"460\" x1=\"264\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"60\" y1=\"460\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"173.33333333333331\" y1=\"460\" x1=\"196\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"513.3333333333333\" y1=\"460\" x1=\"536\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"626.6666666666666\" y1=\"460\" x1=\"672\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"513.3333333333333\" y1=\"460\" x1=\"604\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"60\" y1=\"540\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"145\" y1=\"540\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"230\" y1=\"540\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"315\" y1=\"540\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"145\" y1=\"620\" x1=\"145\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"655\" y1=\"620\" x1=\"485\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"315\" y1=\"620\" x1=\"230\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"570\" y1=\"620\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"315\" y1=\"620\" x1=\"315\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"513.3333333333333\" y1=\"700\" x1=\"655\"></line><line style=\"stroke-width: 8; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"400\" y1=\"700\" x1=\"655\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"60\" y1=\"700\" x1=\"400\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"286.66666666666663\" y1=\"700\" x1=\"570\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"173.33333333333331\" y1=\"700\" x1=\"485\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"135.55555555555554\" y1=\"780\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"211.11111111111111\" y1=\"780\" x1=\"400\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"362.22222222222223\" y1=\"780\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"437.77777777777777\" y1=\"780\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"286.66666666666663\" y1=\"780\" x1=\"400\"></line><path style=\"stroke-width: 3; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M135.55555555555554,60A377.7777777777777,377.7777777777777 0 0,1 513.3333333333333,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M211.11111111111111,60A302.2222222222222,302.2222222222222 0 0,1 513.3333333333333,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M286.66666666666663,60A377.7777777777778,377.7777777777778 0 0,1 664.4444444444445,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M513.3333333333333,60A75.55555555555566,75.55555555555566 0 0,1 588.8888888888889,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M145,140A510,510 0 0,1 655,140\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M145,140A425,425 0 0,1 570,140\"></path><path style=\"stroke-width: 3; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M400,140A255,255 0 0,1 655,140\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M485,140A170,170 0 0,1 655,140\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,220A291.42857142857144,291.42857142857144 0 0,1 351.42857142857144,220\"></path><path style=\"stroke-width: 3; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M108.57142857142857,220A194.28571428571433,194.28571428571433 0 0,1 302.8571428571429,220\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,300A377.77777777777777,377.77777777777777 0 0,1 437.77777777777777,300\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M362.22222222222223,300A226.66666666666669,226.66666666666669 0 0,1 588.8888888888889,300\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M286.66666666666663,380A340,340 0 0,1 626.6666666666666,380\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M128,460A408,408 0 0,1 536,460\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,540A340,340 0 0,1 400,540\"></path><path style=\"stroke-width: 4; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M173.33333333333331,540A339.99999999999994,339.99999999999994 0 0,1 513.3333333333333,540\"></path><path style=\"stroke-width: 4; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M315,700A340,340 0 0,1 655,700\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,860A302.22222222222223,302.22222222222223 0 0,1 362.22222222222223,860\"></path></svg></div>"
+                    "object": "<script>\nvar beaker = bkHelper.getBeakerObject().beakerObj;\n</script>\n<style>\n\n</style>\n<div id=\"graph\"><svg height=\"1000\" width=\"800\">Rap Analyzer<g transform=\"translate(60,60)\"><text font-size=\"15px\" dx=\"-20\">his</text></g><g transform=\"translate(135.55555555555554,60)\"><text font-size=\"15px\" dx=\"-20\">palms</text></g><g transform=\"translate(211.11111111111111,60)\"><text font-size=\"15px\" dx=\"-20\">are</text></g><g transform=\"translate(286.66666666666663,60)\"><text font-size=\"15px\" dx=\"-20\">sweaty</text></g><g transform=\"translate(362.22222222222223,60)\"><text font-size=\"15px\" dx=\"-20\">knees</text></g><g transform=\"translate(437.77777777777777,60)\"><text font-size=\"15px\" dx=\"-20\">weak</text></g><g transform=\"translate(513.3333333333333,60)\"><text font-size=\"15px\" dx=\"-20\">arms</text></g><g transform=\"translate(588.8888888888889,60)\"><text font-size=\"15px\" dx=\"-20\">are</text></g><g transform=\"translate(664.4444444444445,60)\"><text font-size=\"15px\" dx=\"-20\">heavy</text></g><g transform=\"translate(60,140)\"><text font-size=\"15px\" dx=\"-20\">there's</text></g><g transform=\"translate(145,140)\"><text font-size=\"15px\" dx=\"-20\">vomit</text></g><g transform=\"translate(230,140)\"><text font-size=\"15px\" dx=\"-20\">on</text></g><g transform=\"translate(315,140)\"><text font-size=\"15px\" dx=\"-20\">his</text></g><g transform=\"translate(400,140)\"><text font-size=\"15px\" dx=\"-20\">sweater</text></g><g transform=\"translate(485,140)\"><text font-size=\"15px\" dx=\"-20\">already</text></g><g transform=\"translate(570,140)\"><text font-size=\"15px\" dx=\"-20\">mom's</text></g><g transform=\"translate(655,140)\"><text font-size=\"15px\" dx=\"-20\">spaghetti</text></g><g transform=\"translate(60,220)\"><text font-size=\"15px\" dx=\"-20\">he's</text></g><g transform=\"translate(108.57142857142857,220)\"><text font-size=\"15px\" dx=\"-20\">nervous</text></g><g transform=\"translate(157.14285714285714,220)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(205.71428571428572,220)\"><text font-size=\"15px\" dx=\"-20\">on</text></g><g transform=\"translate(254.28571428571428,220)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(302.8571428571429,220)\"><text font-size=\"15px\" dx=\"-20\">surface</text></g><g transform=\"translate(351.42857142857144,220)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(400,220)\"><text font-size=\"15px\" dx=\"-20\">looks</text></g><g transform=\"translate(448.57142857142856,220)\"><text font-size=\"15px\" dx=\"-20\">calm</text></g><g transform=\"translate(497.14285714285717,220)\"><text font-size=\"15px\" dx=\"-20\">and</text></g><g transform=\"translate(545.7142857142858,220)\"><text font-size=\"15px\" dx=\"-20\">ready</text></g><g transform=\"translate(594.2857142857143,220)\"><text font-size=\"15px\" dx=\"-20\">to</text></g><g transform=\"translate(642.8571428571429,220)\"><text font-size=\"15px\" dx=\"-20\">drop</text></g><g transform=\"translate(691.4285714285714,220)\"><text font-size=\"15px\" dx=\"-20\">bombs</text></g><g transform=\"translate(60,300)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(135.55555555555554,300)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(211.11111111111111,300)\"><text font-size=\"15px\" dx=\"-20\">keeps</text></g><g transform=\"translate(286.66666666666663,300)\"><text font-size=\"15px\" dx=\"-20\">on</text></g><g transform=\"translate(362.22222222222223,300)\"><text font-size=\"15px\" dx=\"-20\">forgetting</text></g><g transform=\"translate(437.77777777777777,300)\"><text font-size=\"15px\" dx=\"-20\">what</text></g><g transform=\"translate(513.3333333333333,300)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(588.8888888888889,300)\"><text font-size=\"15px\" dx=\"-20\">wrote</text></g><g transform=\"translate(664.4444444444445,300)\"><text font-size=\"15px\" dx=\"-20\">down</text></g><g transform=\"translate(60,380)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(173.33333333333331,380)\"><text font-size=\"15px\" dx=\"-20\">whole</text></g><g transform=\"translate(286.66666666666663,380)\"><text font-size=\"15px\" dx=\"-20\">crowd</text></g><g transform=\"translate(400,380)\"><text font-size=\"15px\" dx=\"-20\">goes</text></g><g transform=\"translate(513.3333333333333,380)\"><text font-size=\"15px\" dx=\"-20\">so</text></g><g transform=\"translate(626.6666666666666,380)\"><text font-size=\"15px\" dx=\"-20\">loud</text></g><g transform=\"translate(60,460)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(128,460)\"><text font-size=\"15px\" dx=\"-20\">opens</text></g><g transform=\"translate(196,460)\"><text font-size=\"15px\" dx=\"-20\">his</text></g><g transform=\"translate(264,460)\"><text font-size=\"15px\" dx=\"-20\">mouth</text></g><g transform=\"translate(332,460)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(400,460)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(468,460)\"><text font-size=\"15px\" dx=\"-20\">words</text></g><g transform=\"translate(536,460)\"><text font-size=\"15px\" dx=\"-20\">won't</text></g><g transform=\"translate(604,460)\"><text font-size=\"15px\" dx=\"-20\">come</text></g><g transform=\"translate(672,460)\"><text font-size=\"15px\" dx=\"-20\">out</text></g><g transform=\"translate(60,540)\"><text font-size=\"15px\" dx=\"-20\">he's</text></g><g transform=\"translate(173.33333333333331,540)\"><text font-size=\"15px\" dx=\"-20\">choking</text></g><g transform=\"translate(286.66666666666663,540)\"><text font-size=\"15px\" dx=\"-20\">how</text></g><g transform=\"translate(400,540)\"><text font-size=\"15px\" dx=\"-20\">everybody's</text></g><g transform=\"translate(513.3333333333333,540)\"><text font-size=\"15px\" dx=\"-20\">joking</text></g><g transform=\"translate(626.6666666666666,540)\"><text font-size=\"15px\" dx=\"-20\">now</text></g><g transform=\"translate(60,620)\"><text font-size=\"15px\" dx=\"-20\">the</text></g><g transform=\"translate(145,620)\"><text font-size=\"15px\" dx=\"-20\">clock's</text></g><g transform=\"translate(230,620)\"><text font-size=\"15px\" dx=\"-20\">run</text></g><g transform=\"translate(315,620)\"><text font-size=\"15px\" dx=\"-20\">out</text></g><g transform=\"translate(400,620)\"><text font-size=\"15px\" dx=\"-20\">time's</text></g><g transform=\"translate(485,620)\"><text font-size=\"15px\" dx=\"-20\">up</text></g><g transform=\"translate(570,620)\"><text font-size=\"15px\" dx=\"-20\">over</text></g><g transform=\"translate(655,620)\"><text font-size=\"15px\" dx=\"-20\">blaow</text></g><g transform=\"translate(60,700)\"><text font-size=\"15px\" dx=\"-20\">snap</text></g><g transform=\"translate(145,700)\"><text font-size=\"15px\" dx=\"-20\">back</text></g><g transform=\"translate(230,700)\"><text font-size=\"15px\" dx=\"-20\">to</text></g><g transform=\"translate(315,700)\"><text font-size=\"15px\" dx=\"-20\">reality</text></g><g transform=\"translate(400,700)\"><text font-size=\"15px\" dx=\"-20\">oh</text></g><g transform=\"translate(485,700)\"><text font-size=\"15px\" dx=\"-20\">there</text></g><g transform=\"translate(570,700)\"><text font-size=\"15px\" dx=\"-20\">goes</text></g><g transform=\"translate(655,700)\"><text font-size=\"15px\" dx=\"-20\">gravity</text></g><g transform=\"translate(60,780)\"><text font-size=\"15px\" dx=\"-20\">oh</text></g><g transform=\"translate(173.33333333333331,780)\"><text font-size=\"15px\" dx=\"-20\">there</text></g><g transform=\"translate(286.66666666666663,780)\"><text font-size=\"15px\" dx=\"-20\">goes</text></g><g transform=\"translate(400,780)\"><text font-size=\"15px\" dx=\"-20\">rabbit</text></g><g transform=\"translate(513.3333333333333,780)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(626.6666666666666,780)\"><text font-size=\"15px\" dx=\"-20\">choked</text></g><g transform=\"translate(60,860)\"><text font-size=\"15px\" dx=\"-20\">he's</text></g><g transform=\"translate(135.55555555555554,860)\"><text font-size=\"15px\" dx=\"-20\">so</text></g><g transform=\"translate(211.11111111111111,860)\"><text font-size=\"15px\" dx=\"-20\">mad</text></g><g transform=\"translate(286.66666666666663,860)\"><text font-size=\"15px\" dx=\"-20\">but</text></g><g transform=\"translate(362.22222222222223,860)\"><text font-size=\"15px\" dx=\"-20\">he</text></g><g transform=\"translate(437.77777777777777,860)\"><text font-size=\"15px\" dx=\"-20\">won't</text></g><g transform=\"translate(513.3333333333333,860)\"><text font-size=\"15px\" dx=\"-20\">give</text></g><g transform=\"translate(588.8888888888889,860)\"><text font-size=\"15px\" dx=\"-20\">up</text></g><g transform=\"translate(664.4444444444445,860)\"><text font-size=\"15px\" dx=\"-20\">that</text></g><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"315\" y1=\"60\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"485\" y1=\"60\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 8; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"400\" y1=\"60\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"655\" y1=\"60\" x1=\"664.4444444444445\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"140\" x2=\"570\" y1=\"60\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"157.14285714285714\" y1=\"140\" x1=\"145\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"60\" y1=\"140\" x1=\"60\"></line><line style=\"stroke-width: 8; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"545.7142857142858\" y1=\"140\" x1=\"485\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"302.8571428571429\" y1=\"140\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"400\" y1=\"140\" x1=\"485\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"205.71428571428572\" y1=\"140\" x1=\"230\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"691.4285714285714\" y1=\"140\" x1=\"570\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"642.8571428571429\" y1=\"140\" x1=\"570\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"220\" x2=\"108.57142857142857\" y1=\"140\" x1=\"145\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"286.66666666666663\" y1=\"220\" x1=\"448.57142857142856\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"362.22222222222223\" y1=\"220\" x1=\"594.2857142857143\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"362.22222222222223\" y1=\"220\" x1=\"545.7142857142858\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"437.77777777777777\" y1=\"220\" x1=\"594.2857142857143\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"588.8888888888889\" y1=\"220\" x1=\"642.8571428571429\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"286.66666666666663\" y1=\"220\" x1=\"497.14285714285717\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"60\" y1=\"220\" x1=\"157.14285714285714\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"135.55555555555554\" y1=\"220\" x1=\"351.42857142857144\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"300\" x2=\"211.11111111111111\" y1=\"220\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"400\" y1=\"300\" x1=\"588.8888888888889\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"60\" y1=\"300\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"400\" y1=\"300\" x1=\"362.22222222222223\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"286.66666666666663\" y1=\"300\" x1=\"211.11111111111111\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"286.66666666666663\" y1=\"300\" x1=\"362.22222222222223\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"626.6666666666666\" y1=\"300\" x1=\"664.4444444444445\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"380\" x2=\"173.33333333333331\" y1=\"300\" x1=\"135.55555555555554\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"196\" y1=\"380\" x1=\"173.33333333333331\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"672\" y1=\"380\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"536\" y1=\"380\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"468\" y1=\"380\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"264\" y1=\"380\" x1=\"286.66666666666663\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"468\" y1=\"380\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"460\" x2=\"128\" y1=\"380\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"400\" y1=\"460\" x1=\"468\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"286.66666666666663\" y1=\"460\" x1=\"264\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"60\" y1=\"460\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"173.33333333333331\" y1=\"460\" x1=\"196\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"513.3333333333333\" y1=\"460\" x1=\"536\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"626.6666666666666\" y1=\"460\" x1=\"672\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"540\" x2=\"513.3333333333333\" y1=\"460\" x1=\"604\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"60\" y1=\"540\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"145\" y1=\"540\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"230\" y1=\"540\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"620\" x2=\"315\" y1=\"540\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"145\" y1=\"620\" x1=\"145\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"655\" y1=\"620\" x1=\"485\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"315\" y1=\"620\" x1=\"230\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"570\" y1=\"620\" x1=\"400\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"700\" x2=\"315\" y1=\"620\" x1=\"315\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"513.3333333333333\" y1=\"700\" x1=\"655\"></line><line style=\"stroke-width: 8; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"400\" y1=\"700\" x1=\"655\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"60\" y1=\"700\" x1=\"400\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"286.66666666666663\" y1=\"700\" x1=\"570\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"780\" x2=\"173.33333333333331\" y1=\"700\" x1=\"485\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"135.55555555555554\" y1=\"780\" x1=\"60\"></line><line style=\"stroke-width: 1; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"211.11111111111111\" y1=\"780\" x1=\"400\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"362.22222222222223\" y1=\"780\" x1=\"513.3333333333333\"></line><line style=\"stroke-width: 2.82843; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"437.77777777777777\" y1=\"780\" x1=\"626.6666666666666\"></line><line style=\"stroke-width: 5.19615; opacity: 0.7; stroke: rgb(6, 120, 155);\" y2=\"860\" x2=\"286.66666666666663\" y1=\"780\" x1=\"400\"></line><path style=\"stroke-width: 3; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M135.55555555555554,60A377.7777777777777,377.7777777777777 0 0,1 513.3333333333333,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M211.11111111111111,60A302.2222222222222,302.2222222222222 0 0,1 513.3333333333333,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M286.66666666666663,60A377.7777777777778,377.7777777777778 0 0,1 664.4444444444445,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M513.3333333333333,60A75.55555555555566,75.55555555555566 0 0,1 588.8888888888889,60\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M145,140A510,510 0 0,1 655,140\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M145,140A425,425 0 0,1 570,140\"></path><path style=\"stroke-width: 3; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M400,140A255,255 0 0,1 655,140\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M485,140A170,170 0 0,1 655,140\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,220A291.42857142857144,291.42857142857144 0 0,1 351.42857142857144,220\"></path><path style=\"stroke-width: 3; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M108.57142857142857,220A194.28571428571433,194.28571428571433 0 0,1 302.8571428571429,220\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,300A377.77777777777777,377.77777777777777 0 0,1 437.77777777777777,300\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M362.22222222222223,300A226.66666666666669,226.66666666666669 0 0,1 588.8888888888889,300\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M286.66666666666663,380A340,340 0 0,1 626.6666666666666,380\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M128,460A408,408 0 0,1 536,460\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,540A340,340 0 0,1 400,540\"></path><path style=\"stroke-width: 4; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M173.33333333333331,540A339.99999999999994,339.99999999999994 0 0,1 513.3333333333333,540\"></path><path style=\"stroke-width: 4; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M315,700A340,340 0 0,1 655,700\"></path><path style=\"stroke-width: 2; fill: none; opacity: 0.7; stroke: rgb(255, 179, 0);\" d=\"M60,860A302.22222222222223,302.22222222222223 0 0,1 362.22222222222223,860\"></path></svg></div>"
                 },
                 "selectedType": "BeakerDisplay",
                 "elapsedTime": 0
             },
             "evaluatorReader": true,
-            "lineCount": 12
+            "lineCount": 4
         },
         {
             "id": "code2uVtKX",
@@ -423,8 +400,8 @@
             "evaluator": "JavaScript",
             "input": {
                 "body": [
-                    "",
                     "// visualize words as nodes and words that rhyme in adjacent lines are connected by edges",
+                    "d3.select(\"#graph\").selectAll(\"*\").remove();",
                     "var vis = d3.select(\"#graph\")",
                     "            .append(\"svg\");",
                     "",
@@ -539,7 +516,7 @@
             },
             "output": {
                 "selectedType": "Text",
-                "elapsedTime": 72,
+                "elapsedTime": 76,
                 "state": {},
                 "result": "ERROR: circular objects are not supported",
                 "pluginName": "JavaScript"
@@ -561,123 +538,149 @@
     ],
     "namespace": {
         "x": 3,
-        "words": [
-            [
-                "his",
-                "palms",
-                "are",
-                "sweaty",
-                "knees",
-                "weak",
-                "arms",
-                "are",
-                "heavy"
+        "words": {
+            "type": "TableDisplay",
+            "values": [
+                [
+                    "his",
+                    "palms",
+                    "are",
+                    "sweaty",
+                    "knees",
+                    "weak",
+                    "arms",
+                    "are",
+                    "heavy"
+                ],
+                [
+                    "there's",
+                    "vomit",
+                    "on",
+                    "his",
+                    "sweater",
+                    "already",
+                    "mom's",
+                    "spaghetti"
+                ],
+                [
+                    "he's",
+                    "nervous",
+                    "but",
+                    "on",
+                    "the",
+                    "surface",
+                    "he",
+                    "looks",
+                    "calm",
+                    "and",
+                    "ready",
+                    "to",
+                    "drop",
+                    "bombs"
+                ],
+                [
+                    "but",
+                    "he",
+                    "keeps",
+                    "on",
+                    "forgetting",
+                    "what",
+                    "he",
+                    "wrote",
+                    "down"
+                ],
+                [
+                    "the",
+                    "whole",
+                    "crowd",
+                    "goes",
+                    "so",
+                    "loud"
+                ],
+                [
+                    "he",
+                    "opens",
+                    "his",
+                    "mouth",
+                    "but",
+                    "the",
+                    "words",
+                    "won't",
+                    "come",
+                    "out"
+                ],
+                [
+                    "he's",
+                    "choking",
+                    "how",
+                    "everybody's",
+                    "joking",
+                    "now"
+                ],
+                [
+                    "the",
+                    "clock's",
+                    "run",
+                    "out",
+                    "time's",
+                    "up",
+                    "over",
+                    "blaow"
+                ],
+                [
+                    "snap",
+                    "back",
+                    "to",
+                    "reality",
+                    "oh",
+                    "there",
+                    "goes",
+                    "gravity"
+                ],
+                [
+                    "oh",
+                    "there",
+                    "goes",
+                    "rabbit",
+                    "he",
+                    "choked"
+                ],
+                [
+                    "he's",
+                    "so",
+                    "mad",
+                    "but",
+                    "he",
+                    "won't",
+                    "give",
+                    "up",
+                    "that"
+                ]
             ],
-            [
-                "there's",
-                "vomit",
-                "on",
-                "his",
-                "sweater",
-                "already",
-                "mom's",
-                "spaghetti"
+            "subtype": "Matrix",
+            "columnNames": [
+                "c0",
+                "c1",
+                "c2",
+                "c3",
+                "c4",
+                "c5",
+                "c6",
+                "c7",
+                "c8"
             ],
-            [
-                "he's",
-                "nervous",
-                "but",
-                "on",
-                "the",
-                "surface",
-                "he",
-                "looks",
-                "calm",
-                "and",
-                "ready",
-                "to",
-                "drop",
-                "bombs"
-            ],
-            [
-                "but",
-                "he",
-                "keeps",
-                "on",
-                "forgetting",
-                "what",
-                "he",
-                "wrote",
-                "down"
-            ],
-            [
-                "the",
-                "whole",
-                "crowd",
-                "goes",
-                "so",
-                "loud"
-            ],
-            [
-                "he",
-                "opens",
-                "his",
-                "mouth",
-                "but",
-                "the",
-                "words",
-                "won't",
-                "come",
-                "out"
-            ],
-            [
-                "he's",
-                "choking",
-                "how",
-                "everybody's",
-                "joking",
-                "now"
-            ],
-            [
-                "the",
-                "clock's",
-                "run",
-                "out",
-                "time's",
-                "up",
-                "over",
-                "blaow"
-            ],
-            [
-                "snap",
-                "back",
-                "to",
-                "reality",
-                "oh",
-                "there",
-                "goes",
-                "gravity"
-            ],
-            [
-                "oh",
-                "there",
-                "goes",
-                "rabbit",
-                "he",
-                "choked"
-            ],
-            [
-                "he's",
-                "so",
-                "mad",
-                "but",
-                "he",
-                "won't",
-                "give",
-                "up",
-                "that"
+            "types": [
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string",
+                "string"
             ]
-        ],
+        },
         "rhymes": [
             [
                 [

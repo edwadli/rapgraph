@@ -1,4 +1,7 @@
 
+
+function runVisualization(beaker){
+
 // visualize words as nodes and words that rhyme in adjacent lines are connected by edges
 d3.select("#graph").selectAll("*").remove();
 var vis = d3.select("#graph")
@@ -111,3 +114,4 @@ vis.selectAll(".inline")
   .style("stroke", "rgb(255,179,0)");
 
 
+}
