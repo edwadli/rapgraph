@@ -1,4 +1,5 @@
 
+import rapper
 from flask import Flask, send_file, send_from_directory, request, jsonify, Response, json
 import time
 
@@ -29,7 +30,9 @@ def send_scripts(path):
     return send_from_directory('static', path)
 
 def analysis_gen(lyrics):
-    # TODO load rapper.py
+    # TODO: incrementally yield results from rapper
+    for x in rapper.incremental_analyzeRap(lyrics):
+        pass
     for c in lyrics:
         yield c
         time.sleep(0.5)
