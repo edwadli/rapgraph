@@ -1,8 +1,4 @@
 
-import sys
-sys.path.append("gevent-1.0.2/")
-import gevent
-from gevent.wsgi import WSGIServer
 from flask import Flask, send_file, send_from_directory, request, jsonify, Response, json
 import time
 
@@ -40,25 +36,19 @@ def analysis_gen(lyrics):
 
 
 # lyric analysis, yield partial results
-@app.route('/analyze/<path:lyrics>', methods=['GET'])
-def analyze(lyrics):
+@app.route('/analyze', methods=['GET'])
+def analyze():
+    lyrics = request.args.get('lyrics', None)
     def online_results():
-        ev = ServerSentEvent(" ", "__START__")
-        print ev.encode()
-        yield ev.encode()
         if lyrics:
         # run analysis on lyrics
             for partial_result in analysis_gen(lyrics):
                 ev = ServerSentEvent(json.dumps(partial_result), "partial")
-                print ev.encode()
                 yield ev.encode()
         ev = ServerSentEvent(" ", "__EOF__")
-        print ev.encode()
         yield ev.encode()
     return Response(online_results(), mimetype="text/event-stream")
 
 if __name__ == "__main__":
-    # server = WSGIServer(("", 5000), app)
-    # server.serve_forever()
     app.run(threaded=True, debug=True)
 

@@ -4,10 +4,37 @@ html,body {
     height: 100%;
 }
 
+#title-logo {
+    width: auto;
+    height: auto;
+}
+
 .center {
     text-align: center;
 }
 
 #lyrics-textarea {
     resize: vertical;
+}
+
+
+/* Analyze Button */
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+}
+
+/*.has-spinner.activespin {
+  cursor:progress;
+}*/
+
+.has-spinner.activespin .spinner {
+  opacity: 1;
+  width: 10px;
 }
