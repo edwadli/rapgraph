@@ -8,15 +8,12 @@ var vis = d3.select("#graph")
             .append("svg");
 
 var width = 800,
-    height= 1000;
+    height= 800;
 vis.attr("width", width)
   .attr("height", height);
 var border = 60;
 var maxwidth = width - 2*border,
-    maxheight = height - 2*border;
-
-vis.text("Rap Analyzer")
-  .select("#graph");
+    maxheight = height;
 
 // compute positions of words
 var word_grid = beaker.words;
@@ -34,7 +31,7 @@ for (var i=0; i<word_grid.length; i++){
   for (var j=0; j<word_grid[i].length; j++){
     var xpos = border + j*maxwidth/word_grid[i].length;
 //     var xpos = border + j*maxwidth/max_row_length;
-    var ypos = border + i*maxheight/word_grid.length;
+    var ypos = i*maxheight/word_grid.length;
     var node_obj = {x: xpos, y: ypos, data:word_grid[i][j]};
     nodes.push(node_obj);
     node_pos[i+","+j] = node_obj;
@@ -112,6 +109,5 @@ vis.selectAll(".inline")
   .style("fill", "none")
   .style("opacity", "0.7")
   .style("stroke", "rgb(255,179,0)");
-
 
 }

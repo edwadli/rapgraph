@@ -30,12 +30,9 @@ def send_scripts(path):
     return send_from_directory('static', path)
 
 def analysis_gen(lyrics):
-    # TODO: incrementally yield results from rapper
-    for x in rapper.incremental_analyzeRap(lyrics):
-        pass
-    for c in lyrics:
-        yield c
-        time.sleep(0.5)
+    # incrementally yield results from rapper
+    for beaker in rapper.incrementalAnalyzeRap(lyrics):
+        yield beaker
 
 
 # lyric analysis, yield partial results

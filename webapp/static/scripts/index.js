@@ -7,13 +7,15 @@ $(document).ready(function(){
     }
     // initialize resultSource via empty call to server
     var resultSource = new EventSource("/analyze");
+    resultSource.close();
     // initialize result data container
-    var beaker = { words: [], rhymes: [], inlines: [] };
+    var beaker = { words: [[]], rhymes: [], inlines: [[]] };
 
     $('#lyric-input').submit(function(event){
         event.preventDefault();
         // grab lyrics from input box
         var lyrics = $('#lyrics-textarea').val();
+        // escape newline characters
         if (lyrics.length === 0) return;
         // EventSource makes a GET request, so we need to
         //  send the data through the url
@@ -27,15 +29,17 @@ $(document).ready(function(){
         // clear previous
         $('#graph').html("");
         resultSource.close();
+        beaker = { words: [[]], rhymes: [], inlines: [[]] };
 
-        resultSource = new EventSource("/analyze?lyrics="+lyrics);
+        resultSource = new EventSource("/analyze?lyrics="+encodeURI(lyrics));
         // note resultSource.onmessage only fires for messages without event type
         resultSource.addEventListener('partial', function(e) {
 
-            // TODO: load data into beaker
-            beaker.words = [['rap', 'graph'], ['rap', 'graph']];
-            beaker.rhymes = [[[0,0,2],[1,1,2]]];
-            beaker.inlines = [[[0,1,2]],[[0,1,2]]];
+            beaker_partial = JSON.parse(e.data);
+            // load data into beaker
+            beaker.words.push(beaker_partial.words);
+            beaker.rhymes.push(beaker_partial.rhymes);
+            beaker.inlines.push(beaker_partial.inlines);
             // call d3 visualizer; TODO: smarter update instead of redrawing everything
             runVisualization(beaker);
         });

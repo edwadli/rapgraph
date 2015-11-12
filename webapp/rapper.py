@@ -214,10 +214,23 @@ def analyzeRap(verse):
     beaker['inlines'] = inline_links # list of list of (wordindex, wordindex, weight)
     return beaker
 
-def incremental_analyzeRap(verse):
-    # TODO: yield partial results as they come in
+def incrementalAnalyzeRap(verse):
+    # yield partial results line by line
     verse_nested, vocab = tokenizeVerse(verse)
     phoneme_dict = phonemes(vocab)
 
+    prev_line = []
     for i in range(len(verse_nested)):
-        yield {}
+        curr_line = verse_nested[i]
+        # get rhyme alignment for these two lines
+        rhyme_alignment = alignRhyme(prev_line, curr_line, phoneme_dict)
+        # get inline rhyme alignment for the current line
+        inline_alignment = inlineRhyme(curr_line, phoneme_dict)
+        # yield result for that line of the verse
+        yield {
+            'words': curr_line,
+            'rhymes': rhyme_alignment,
+            'inlines': inline_alignment
+        }
+        # shift for next iteration
+        prev_line = curr_line
