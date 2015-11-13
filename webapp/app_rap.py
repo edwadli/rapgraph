@@ -1,4 +1,5 @@
 
+import os
 import rapper
 from flask import Flask, send_file, send_from_directory, request, jsonify, Response, json
 import time
@@ -29,7 +30,7 @@ def index():
     return send_file('static/index.html')
 @app.route('/<path:path>')
 def send_scripts(path):
-    return send_from_directory('static', path)
+    return send_from_directory(os.path.join(app.root_path, 'static'), path)
 
 def analysis_gen(lyrics):
     # incrementally yield results from rapper
