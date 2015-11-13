@@ -1,4 +1,6 @@
 
+import os
+os.environ['NLTK_DATA'] = os.path.dirname(os.path.abspath(__file__))
 from nltk.corpus import cmudict
 _DEBUG_ = False
 # the basis of rhyme
