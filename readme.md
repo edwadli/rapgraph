@@ -7,11 +7,16 @@ How can code help us understand what makes great raps? We built this app to find
 
 RapGraph was built in beaker, using python for processing, and d3.js for visualization. Used nltk to translate word to phoneme (with cmudict). Implements Smith-Waterman alignment algorithm (typically used in genomics) to align phonemes from adjacent lines.
 
+![Screenshot](screenshots/RapGraph_LoseYourself.png)
+
 ### Future Features
 TTR: text to rap. Then the entire pipeline, for a rap battling robot.
 
-## Installation
+## Use RapGraph Right Now!
 
+Visit [www.RapGraph.me](http://www.rapgraph.me)
+
+## Installation for Hacking
     git clone https://github.com/el2724/rapper.git rapGraph
 
 ### With Python
@@ -28,9 +33,7 @@ TTR: text to rap. Then the entire pipeline, for a rap battling robot.
 
 [Beaker Notebook](http://beakernotebook.com/) is a program that lets you projects that combine 16+ different programming languages. You can open any of the `.bkr` files in the `research` folder if you have 
 
-### Run via Webapp
 
-Coming Soon! 
 
 ## External Links
 
