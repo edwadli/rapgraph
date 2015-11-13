@@ -20,6 +20,8 @@ class ServerSentEvent(object):
 
 # server app
 app = Flask(__name__)
+app.debug = True
+app.threaded = True
 
 # splash page
 @app.route('/')
@@ -50,5 +52,5 @@ def analyze():
     return Response(online_results(), mimetype="text/event-stream")
 
 if __name__ == "__main__":
-    app.run(threaded=True, debug=True)
+    app.run()
 
