@@ -1,0 +1,89 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "Html",
+            "plugin": "Html",
+            "view": {
+                "cm": {
+                    "mode": "htmlmixed"
+                }
+            }
+        },
+        {
+            "name": "IPython",
+            "plugin": "IPython",
+            "setup": "%matplotlib inline\nimport numpy\nimport matplotlib\nfrom matplotlib import pylab, mlab, pyplot\nnp = numpy\nplt = pyplot\nfrom IPython.display import display\nfrom IPython.core.pylabtools import figsize, getfigs\nfrom pylab import *\nfrom numpy import *\n",
+            "view": {
+                "cm": {
+                    "mode": "python"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "jsSetting2": "",
+            "jsSetting1": "",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            }
+        }
+    ],
+    "cells": [
+        {
+            "id": "sectionGUUV18",
+            "type": "section",
+            "title": "RapGraph v2",
+            "level": 1,
+            "evaluatorReader": false,
+            "collapsed": false
+        },
+        {
+            "id": "markdown3GtTQk",
+            "type": "markdown",
+            "body": [
+                "A probabalistic approach to computational rap.",
+                "",
+                "New features for the backend include:",
+                "- Guessing pronunciation for words not seen in the cmudict (instead of just ignoring word altogether)",
+                "- HMM approach to sequence finding (instead of genomic sequence match algorithm), independent of input lyrics' linebreaks",
+                "    - transition probabilities trained on input lyrics seen so far, based on Profile HMMs",
+                "    - emission probabilities (like an HMM) based on phoneme similarity probability derived from phoneme clustering",
+                "- Incremental (line-by-line) push of results (via yield)",
+                "",
+                "New features for the frontend include:",
+                "- Connected components of rhyme graph are highlighted on mouseover",
+                "- Line breaks based on rhyme structure (instead of using line breaks of input lyrics)"
+            ],
+            "evaluatorReader": false
+        },
+        {
+            "id": "codecda1Gf",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "_DEBUG_ = True",
+                    "from nltk.corpus import cmudict",
+                    "word2phoneme_dict = cmudict.dict()",
+                    "",
+                    ""
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "pluginName": "IPython",
+                "shellId": "2F32E08CD43B42EEBC4E139C5865DC84",
+                "elapsedTime": 4258
+            },
+            "evaluatorReader": true,
+            "lineCount": 5
+        }
+    ],
+    "namespace": {}
+}
