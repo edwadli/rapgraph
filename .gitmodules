@@ -1,0 +1,3 @@
+[submodule "sequitur-g2p"]
+	path = sequitur-g2p
+	url = https://github.com/Holzhaus/sequitur-g2p
