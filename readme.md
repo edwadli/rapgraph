@@ -26,7 +26,7 @@ Visit [www.RapGraph.me](http://www.rapgraph.me)
     virtualenv .
     source bin/activate
     pip install -r requirements.txt
-    python run.py
+    python webapp/app_run.py
 ```
 
 ### With Beaker Notebook
